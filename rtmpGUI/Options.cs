@@ -28,23 +28,7 @@ namespace rtmpGUI
             }
         }
 
-        public void SaveSettings(string file, string item, string setting)
-        {
-
-            XmlTextWriter textWriter = new XmlTextWriter(file, null);
-
-            textWriter.Formatting = Formatting.Indented;
-            textWriter.WriteStartDocument();
-            textWriter.WriteStartElement("rtmpGUI", "");
-
-            textWriter.WriteStartElement(item, "");
-            textWriter.WriteString(setting);
-            textWriter.WriteEndElement();
-
-            textWriter.WriteEndElement();
-            textWriter.WriteEndDocument();
-            textWriter.Close();
-        }
+        
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -53,7 +37,7 @@ namespace rtmpGUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SaveSettings(Application.StartupPath.ToString() + "\\config.xml", "vlc-loc", vlcfile);
+           ListFunctions.SaveSettings(Application.StartupPath.ToString() + "\\config.xml", "vlc-loc", vlcfile);
             this.Hide();
         }
     }

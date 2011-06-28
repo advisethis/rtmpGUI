@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 
+
 namespace rtmpGUI
 {
     public partial class Main : Form
@@ -21,8 +22,8 @@ namespace rtmpGUI
 
         public Main()
         {
-            InitializeComponent();
-
+            InitializeComponent(); 
+            
         }
         #region form_stuff
         private void Form1_Load(object sender, EventArgs e)
@@ -163,8 +164,8 @@ namespace rtmpGUI
                 listView1.Items.Clear();
                 try
                 {
-                    //xDoc.Load("http://apps.ohlulz.com/rtmpplayer/list.xml");
-                    xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
+                    xDoc.Load("http://apps.ohlulz.com/rtmpplayer/list.xml");
+                    //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
 
@@ -203,6 +204,7 @@ namespace rtmpGUI
                 lvi.SubItems.Add(array[4]);
                 this.listView1.Items.Add(lvi);
             }
+            ListFunctions.SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
 
         public void EditChanel(string[] array)
@@ -223,6 +225,7 @@ namespace rtmpGUI
                     lvi.SubItems[4].Text = array[4];
                 }
             }
+            ListFunctions.SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
 
 
@@ -279,28 +282,7 @@ namespace rtmpGUI
             }
         }
 
-        private void DebugLog(string item)
-        {
-            StreamWriter log;
-
-            if (!File.Exists("logfile.txt"))
-            {
-                log = new StreamWriter("logfile.txt");
-            }
-            else
-            {
-                log = File.AppendText("logfile.txt");
-            }
-
-            // Write to the file:
-            log.WriteLine(DateTime.Now);
-            log.WriteLine(item);
-            log.WriteLine();
-
-            // Close the stream:
-            log.Close();
-
-        }
+        
 
 
         #endregion
