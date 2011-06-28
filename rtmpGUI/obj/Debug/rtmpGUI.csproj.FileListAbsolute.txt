@@ -1,0 +1,12 @@
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.AboutBox1.resources
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.AddChannel.resources
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.Main.resources
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.Options.resources
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.Properties.Resources.resources
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.csproj.GenerateResource.Cache
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\bin\Debug\rtmpGUI.exe
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\bin\Debug\rtmpGUI.pdb
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.EditChannel.resources
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.exe
+C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Debug\rtmpGUI.pdb
