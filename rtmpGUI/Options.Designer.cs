@@ -36,7 +36,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkStartList = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -95,12 +97,23 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkStartList);
             this.groupBox2.Location = new System.Drawing.Point(13, 13);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(379, 126);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program Options";
+            // 
+            // chkStartList
+            // 
+            this.chkStartList.AutoSize = true;
+            this.chkStartList.Location = new System.Drawing.Point(6, 19);
+            this.chkStartList.Name = "chkStartList";
+            this.chkStartList.Size = new System.Drawing.Size(197, 17);
+            this.chkStartList.TabIndex = 1;
+            this.chkStartList.Text = "Load remote channel list at start up?";
+            this.chkStartList.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -115,8 +128,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Options";
             this.Text = "Options";
+            this.Load += new System.EventHandler(this.Options_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -130,5 +146,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.TextBox txtVLCloc;
+        private System.Windows.Forms.CheckBox chkStartList;
     }
 }

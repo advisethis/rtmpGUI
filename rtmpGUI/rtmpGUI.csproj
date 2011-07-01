@@ -67,8 +67,6 @@
     <Compile Include="EditChannel.Designer.cs">
       <DependentUpon>EditChannel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListFunctions.cs">
-    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

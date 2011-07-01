@@ -17,21 +17,18 @@ namespace rtmpGUI
     public partial class Main : Form
     {
         string vlcLoc = "";
+        string list = "";
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
 
         public Main()
         {
-            InitializeComponent(); 
-            
+            InitializeComponent();
+
         }
         #region form_stuff
         private void Form1_Load(object sender, EventArgs e)
         {
-            ThreadStart update = new ThreadStart(RefreshXML);
-            Thread check = new Thread(update);
-            check.Start();
-            RefreshXML();
             LoadSettings();
         }
 
@@ -44,7 +41,7 @@ namespace rtmpGUI
 
         private void refreshxmlMenu_Click(object sender, EventArgs e)
         {
-            ThreadStart update = new ThreadStart(RefreshXML);
+            ThreadStart update = new ThreadStart(RemoteXML);
             Thread check = new Thread(update);
             check.Start();
         }
@@ -115,9 +112,6 @@ namespace rtmpGUI
             }
 
             ec.Show(this);
-
-
-
         }
 
         private void deleteChannel_Click(object sender, EventArgs e)
@@ -126,6 +120,11 @@ namespace rtmpGUI
             {
                 listView1.Items.Remove(lvi);
             }
+        }
+
+        private void saveChannels_Click(object sender, EventArgs e)
+        {
+            SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
         #endregion
 
@@ -148,15 +147,24 @@ namespace rtmpGUI
             }
         }
         #endregion
+
+
+        private void wbApp_NewWindow(object sender, CancelEventArgs e)
+        {
+
+            wbApp.Navigate(wbApp.StatusText);
+            e.Cancel = true;
+
+        }
         #endregion
 
         #region functions
-        private void RefreshXML()
+        private void RemoteXML()
         {
 
             if (listView1.InvokeRequired)
             {
-                listView1.BeginInvoke(new MethodInvoker(() => RefreshXML()));
+                listView1.BeginInvoke(new MethodInvoker(() => RemoteXML()));
             }
             else
             {
@@ -166,6 +174,43 @@ namespace rtmpGUI
                 {
                     xDoc.Load("http://apps.ohlulz.com/rtmpplayer/list.xml");
                     //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
+                    int c = xDoc.GetElementsByTagName("stream").Count;
+                    int i = 0;
+
+                    while (i < c)
+                    {
+                        ListViewItem lvi = listView1.Items.Add(xDoc.GetElementsByTagName("title")[i].InnerText);
+                        lvi.SubItems.Add(xDoc.GetElementsByTagName("swfUrl")[i].InnerText);
+                        lvi.SubItems.Add(xDoc.GetElementsByTagName("link")[i].InnerText);
+                        lvi.SubItems.Add(xDoc.GetElementsByTagName("pageUrl")[i].InnerText);
+                        lvi.SubItems.Add(xDoc.GetElementsByTagName("playpath")[i].InnerText);
+
+                        i++;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DebugLog(ex.ToString());
+                }
+
+            }
+        }
+
+        private void LocalXML()
+        {
+
+            if (listView1.InvokeRequired)
+            {
+                listView1.BeginInvoke(new MethodInvoker(() => LocalXML()));
+            }
+            else
+            {
+                XmlDocument xDoc = new XmlDocument();
+                listView1.Items.Clear();
+                try
+                {
+                    xDoc.Load(Application.StartupPath.ToString() + "\\channels.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
 
@@ -204,7 +249,7 @@ namespace rtmpGUI
                 lvi.SubItems.Add(array[4]);
                 this.listView1.Items.Add(lvi);
             }
-            ListFunctions.SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
+            SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
 
         public void EditChanel(string[] array)
@@ -225,19 +270,32 @@ namespace rtmpGUI
                     lvi.SubItems[4].Text = array[4];
                 }
             }
-            ListFunctions.SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
+            SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
 
 
         private void LoadSettings()
         {
-            Options f2 = new Options();
             XmlDocument xDoc = new XmlDocument();
+            Options f2 = new Options();
             try
             {
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 vlcLoc = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
-                f2.txtVLCloc.Text = vlcLoc.ToString();
+                list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
+
+                if (list == "remote")
+                {
+                    ThreadStart update = new ThreadStart(RemoteXML);
+                    Thread check = new Thread(update);
+                    check.Start();
+                }
+                else
+                {
+                    ThreadStart update = new ThreadStart(LocalXML);
+                    Thread check = new Thread(update);
+                    check.Start();
+                }
             }
             catch (Exception ex)
             {
@@ -282,7 +340,81 @@ namespace rtmpGUI
             }
         }
 
-        
+        public void SaveList(ListView list, string file)
+        {
+            try
+            {
+                using (var tw = new XmlTextWriter(file, null)) // By using the using statement (not directive!) we remove the need of tw.Close() afterwards.
+                {
+                    tw.Formatting = Formatting.Indented;
+                    tw.WriteStartDocument();
+                    tw.WriteStartElement("streams");
+
+
+                    for (int i = 0; i < list.Items.Count; i++)
+                    {
+                        // Start a new element.
+                        tw.WriteStartElement("stream", string.Empty);
+
+                        tw.WriteStartElement("title", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[0].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("swfUrl", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[1].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("link", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[2].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("pageUrl", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[3].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("playpath", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[4].Text);
+                        tw.WriteEndElement();
+
+                        // And close it off.
+                        tw.WriteEndElement();
+                    }
+
+                    // I'd relocate these statements out of the foreach loop, seeing we already close each element
+                    // properly, and we don't want to close the entire file off until after we've written all elements, right?
+                    tw.WriteEndElement();
+                    tw.WriteEndDocument();
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugLog(ex.Message);
+            }
+        }
+
+
+        public void DebugLog(string item)
+        {
+            StreamWriter log;
+
+            if (!File.Exists("logfile.txt"))
+            {
+                log = new StreamWriter("logfile.txt");
+            }
+            else
+            {
+                log = File.AppendText("logfile.txt");
+            }
+
+            // Write to the file:
+            log.WriteLine(DateTime.Now);
+            log.WriteLine(item);
+            log.WriteLine();
+
+            // Close the stream:
+            log.Close();
+
+        }
 
 
         #endregion
