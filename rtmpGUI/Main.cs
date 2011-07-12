@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+using System.Net;
+using System.Web;
 using System.Threading;
 using System.Diagnostics;
 
@@ -18,6 +20,7 @@ namespace rtmpGUI
     {
         string vlcLoc = "";
         string list = "";
+        HttpWebRequest webconnect;
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
 
@@ -39,10 +42,19 @@ namespace rtmpGUI
             Options.Show();
         }
 
-        private void refreshxmlMenu_Click(object sender, EventArgs e)
+        private void remoteXmlLoad_Click(object sender, EventArgs e)
         {
             ThreadStart update = new ThreadStart(RemoteXML);
             Thread check = new Thread(update);
+            check.Priority = ThreadPriority.Normal;
+            check.Start();
+        }
+
+        private void LocalXMLLoad_Click(object sender, EventArgs e)
+        {
+            ThreadStart update = new ThreadStart(LocalXML);
+            Thread check = new Thread(update);
+            check.Priority = ThreadPriority.Normal;
             check.Start();
         }
 
@@ -126,16 +138,33 @@ namespace rtmpGUI
         {
             SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
-        #endregion
 
+
+        private void submitChannel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (ListViewItem lvi in listView1.SelectedItems)
+                {
+                    var safeswf = HttpUtility.UrlEncode(lvi.SubItems[1].Text);
+                    var safertmp = HttpUtility.UrlEncode(lvi.SubItems[2].Text);
+                    var safepage = HttpUtility.UrlEncode(lvi.SubItems[3].Text);
+                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpplayer/api.php?title=" + lvi.SubItems[0].Text + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + lvi.SubItems[4]);
+                     //connection("http://127.0.0.1/rtmpplayer/api.php?title=" + lvi.SubItems[0].Text + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + lvi.SubItems[4].Text);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DebugLog(ex.ToString());
+            }
+        }
+        #endregion
 
         #region listview
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in listView1.SelectedItems)
-            {
-                sysLabel.Text = lvi.SubItems[0].Text;
-            }
         }
 
         private void listView1_DoubleClick(object sender, System.EventArgs e)
@@ -144,6 +173,7 @@ namespace rtmpGUI
             {
                 LoadSettings();
                 RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text);
+                sysLabel.Text = "Loading : " + lvi.SubItems[0].Text;
             }
         }
         #endregion
@@ -393,6 +423,24 @@ namespace rtmpGUI
         }
 
 
+        public string connection(string url)
+        {
+            webconnect = (HttpWebRequest)HttpWebRequest.Create(url);
+
+            webconnect.UserAgent = "rtmpGUI";
+
+            WebResponse Response = webconnect.GetResponse();
+            Stream WebStream = Response.GetResponseStream();
+            StreamReader Reader = new StreamReader(WebStream);
+            string PageContent = Reader.ReadToEnd();
+
+            Reader.Close();
+            WebStream.Close();
+            Response.Close();
+
+            return PageContent;
+        }
+
         public void DebugLog(string item)
         {
             StreamWriter log;
@@ -418,5 +466,7 @@ namespace rtmpGUI
 
 
         #endregion
+
+
     }
 }

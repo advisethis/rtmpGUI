@@ -29,5 +29,13 @@ namespace rtmpGUI
             fmain.AddChanel(array);
             this.Hide();
         }
+
+        private void txtTitle_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button2_Click(null, null);
+            }
+        }
     }
 }

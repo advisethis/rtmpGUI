@@ -81,9 +81,23 @@ namespace rtmpGUI.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap book_open {
+            get {
+                object obj = ResourceManager.GetObject("book_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap cross {
             get {
                 object obj = ResourceManager.GetObject("cross", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap drive {
+            get {
+                object obj = ResourceManager.GetObject("drive", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

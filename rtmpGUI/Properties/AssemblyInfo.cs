@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("rtmpGUI")]
-[assembly: AssemblyDescription("A GUI frontend for the windows command line application rtmpdump.")]
+[assembly: AssemblyDescription("A graphical frontend and database for rtmpdump.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ohlulz.com/myp2pforum.eu")]
 [assembly: AssemblyProduct("rtmpGUI")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.4.0")]
-[assembly: AssemblyFileVersion("0.0.4.0")]
+[assembly: AssemblyVersion("0.0.5.0")]
+[assembly: AssemblyFileVersion("0.0.5.0")]
