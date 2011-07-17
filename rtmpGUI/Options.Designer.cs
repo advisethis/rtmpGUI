@@ -37,6 +37,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkStartList = new System.Windows.Forms.CheckBox();
+            this.chkCheckUpdates = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -97,6 +98,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkCheckUpdates);
             this.groupBox2.Controls.Add(this.chkStartList);
             this.groupBox2.Location = new System.Drawing.Point(13, 13);
             this.groupBox2.Name = "groupBox2";
@@ -114,6 +116,16 @@
             this.chkStartList.TabIndex = 1;
             this.chkStartList.Text = "Load remote channel list at start up?";
             this.chkStartList.UseVisualStyleBackColor = true;
+            // 
+            // chkCheckUpdates
+            // 
+            this.chkCheckUpdates.AutoSize = true;
+            this.chkCheckUpdates.Location = new System.Drawing.Point(7, 43);
+            this.chkCheckUpdates.Name = "chkCheckUpdates";
+            this.chkCheckUpdates.Size = new System.Drawing.Size(169, 17);
+            this.chkCheckUpdates.TabIndex = 2;
+            this.chkCheckUpdates.Text = "Check for updates on startup?";
+            this.chkCheckUpdates.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -147,5 +159,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.TextBox txtVLCloc;
         private System.Windows.Forms.CheckBox chkStartList;
+        private System.Windows.Forms.CheckBox chkCheckUpdates;
     }
 }

@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.Windows.Forms;
+using System.Net;
 using System.Xml;
 using System.IO;
-using System.Net;
 using System.Web;
+using Microsoft.Win32;
 using System.Threading;
-using System.Diagnostics;
 
 
 namespace rtmpGUI
 {
     public partial class Main : Form
     {
-        string vlcLoc = "";
-        string list = "";
+        string vlcLoc = string.Empty;
+        string list = string.Empty;
+        string updates = string.Empty;
         HttpWebRequest webconnect;
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
@@ -72,6 +75,11 @@ namespace rtmpGUI
             }
         }
 
+        private void checkUpdatesMenu_Click(object sender, EventArgs e)
+        {
+            CheckUpdates();
+        }
+
         private void exitMenu_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -82,7 +90,16 @@ namespace rtmpGUI
         #region help_menu
         private void howToMenu_Click(object sender, EventArgs e)
         {
-            wbApp.Navigate("http://apps.ohlulz.com/rtmpplayer/guide.php");
+            if (howToMenu.Checked == true)
+            {
+                wbApp.Navigate("http://apps.ohlulz.com/rtmpplayer/guide.php");
+            }
+            else
+            {
+                wbApp.Navigate("http://tvlistings.tvguide.com/ListingsWeb/listings/ScrollingGridIFrame.aspx");
+            }
+            
+            
         }
 
         private void aboutMenu_Click(object sender, EventArgs e)
@@ -149,7 +166,7 @@ namespace rtmpGUI
                     var safeswf = HttpUtility.UrlEncode(lvi.SubItems[1].Text);
                     var safertmp = HttpUtility.UrlEncode(lvi.SubItems[2].Text);
                     var safepage = HttpUtility.UrlEncode(lvi.SubItems[3].Text);
-                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpplayer/api.php?title=" + lvi.SubItems[0].Text + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + lvi.SubItems[4]);
+                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpplayer/api.php?title=" + lvi.SubItems[0].Text + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + lvi.SubItems[4].Text);
                      //connection("http://127.0.0.1/rtmpplayer/api.php?title=" + lvi.SubItems[0].Text + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + lvi.SubItems[4].Text);
 
                 }
@@ -220,7 +237,7 @@ namespace rtmpGUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("An error occured while trying to load the remote channel list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DebugLog(ex.ToString());
                 }
 
@@ -257,7 +274,7 @@ namespace rtmpGUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("An error occured while trying to load the local channel list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DebugLog(ex.ToString());
                 }
 
@@ -313,6 +330,7 @@ namespace rtmpGUI
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 vlcLoc = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
+                updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
 
                 if (list == "remote")
                 {
@@ -326,11 +344,22 @@ namespace rtmpGUI
                     Thread check = new Thread(update);
                     check.Start();
                 }
+
+                if (updates == "true")
+                {
+                    ThreadStart update = new ThreadStart(CheckUpdates);
+                    Thread check = new Thread(update);
+                    check.Start();
+                }
+                else
+                {
+                    //Do jack
+                }
             }
             catch (Exception ex)
             {
                 f2.Show();
-                MessageBox.Show("config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There was an error with the config file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 DebugLog(ex.ToString());
             }
         }
@@ -341,13 +370,22 @@ namespace rtmpGUI
             {
                 Process pr = new Process();
                 pr.StartInfo.FileName = "cmd.exe";
-                pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
-                txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                if (playpath.Length == 0)
+                {
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                }
+                else
+                {
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                }
+                
                 pr.Start();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while trying to play the channel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DebugLog(ex.ToString());
             }
         }
@@ -359,13 +397,21 @@ namespace rtmpGUI
                 Process pr = new Process();
                 string format = "ddMMyy.HHmm";
                 pr.StartInfo.FileName = "cmd.exe";
-                pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
-                txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                if (playpath.Length == 0)
+                {
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                }
+                else
+                {
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                }
                 pr.Start();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while trying to record the channel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DebugLog(ex.ToString());
             }
         }
@@ -440,6 +486,37 @@ namespace rtmpGUI
 
             return PageContent;
         }
+
+
+
+        public void CheckUpdates()
+        {
+            try
+            {
+                string data = connection("http://apps.ohlulz.com/rtmpplayer/version.txt");
+
+                var downloadedVersion = new Version(data.Substring("version=".Length));
+
+                if (Assembly.GetExecutingAssembly().GetName().Version >= downloadedVersion)
+                {
+
+                    sysLabel.Text = "Update Status : There are no updates at this time.";
+                }
+                else
+                {
+                    sysLabel.Text = "Update Status : A new version of rtmpGUI is available.";
+                    System.Diagnostics.Process.Start("http://ohlulz.com/download.php?f=rtmpGUI.rar");
+                }
+            }
+            catch (Exception ex)
+            {
+                sysLabel.Text = "Update Status : Update check failed.";
+                DebugLog(ex.ToString());
+            }
+        }
+
+
+
 
         public void DebugLog(string item)
         {

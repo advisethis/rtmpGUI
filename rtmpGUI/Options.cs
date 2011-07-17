@@ -13,11 +13,13 @@ namespace rtmpGUI
 {
     public partial class Options : Form
     {
-        string vlcfile = "";
+        string vlcfile = string.Empty;
         string list = string.Empty;
+        string updates = string.Empty;
         public Options()
         {
             InitializeComponent();
+            LoadSettings();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,11 +27,9 @@ namespace rtmpGUI
             if (findVLC.ShowDialog() == DialogResult.OK)
             {
                 txtVLCloc.Text = findVLC.FileName.ToString();
-                vlcfile = "\"" + txtVLCloc.Text + "\"";
+                txtVLCloc.Text = "\"" + txtVLCloc.Text + "\"";
             }
         }
-
-
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -51,7 +51,7 @@ namespace rtmpGUI
                 tw.WriteStartElement("rtmpGUI", string.Empty);
 
                 tw.WriteStartElement("vlc-loc", "");
-                tw.WriteString(vlcfile);
+                tw.WriteString(txtVLCloc.Text);
                 tw.WriteEndElement();
 
 
@@ -64,6 +64,17 @@ namespace rtmpGUI
                 {
                 tw.WriteString("local");
                 } 
+                tw.WriteEndElement();
+
+                tw.WriteStartElement("updates", "");
+                if (chkCheckUpdates.Checked == true)
+                {
+                    tw.WriteString("true");
+                }
+                else
+                {
+                    tw.WriteString("false");
+                }
                 tw.WriteEndElement();
 
 
@@ -80,6 +91,8 @@ namespace rtmpGUI
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 txtVLCloc.Text = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
+                updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
+
 
                 if (list == "remote")
                 {
@@ -90,17 +103,27 @@ namespace rtmpGUI
                     chkStartList.Checked = false;
                 }
 
+                if (updates == "true")
+                {
+                    chkCheckUpdates.Checked = true;
+                }
+                else
+                {
+                    chkCheckUpdates.Checked = false;
+                }
+
 
             }
             catch (Exception ex)
             {
                 chkStartList.Checked = true;
+                chkCheckUpdates.Checked = true;
             }
         }
 
         private void Options_Load(object sender, EventArgs e)
         {
-            LoadSettings();
+            
         }
     }
 }
