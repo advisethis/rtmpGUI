@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddChannel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtLanguage = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtPlaypath = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,6 +49,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.txtLanguage);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtPlaypath);
             this.groupBox1.Controls.Add(this.label4);
@@ -59,23 +63,39 @@
             this.groupBox1.Controls.Add(this.txtTitle);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 161);
+            this.groupBox1.Size = new System.Drawing.Size(380, 181);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Channel Info";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 48);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Language :";
+            // 
+            // txtLanguage
+            // 
+            this.txtLanguage.Location = new System.Drawing.Point(95, 45);
+            this.txtLanguage.Name = "txtLanguage";
+            this.txtLanguage.Size = new System.Drawing.Size(279, 20);
+            this.txtLanguage.TabIndex = 10;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 130);
+            this.label5.Location = new System.Drawing.Point(35, 152);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Playpath : ";
+            this.label5.Text = "Playpath :";
             // 
             // txtPlaypath
             // 
-            this.txtPlaypath.Location = new System.Drawing.Point(95, 127);
+            this.txtPlaypath.Location = new System.Drawing.Point(95, 149);
             this.txtPlaypath.Name = "txtPlaypath";
             this.txtPlaypath.Size = new System.Drawing.Size(279, 20);
             this.txtPlaypath.TabIndex = 8;
@@ -83,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 103);
+            this.label4.Location = new System.Drawing.Point(26, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 7;
@@ -91,7 +111,7 @@
             // 
             // txtPageUrl
             // 
-            this.txtPageUrl.Location = new System.Drawing.Point(95, 100);
+            this.txtPageUrl.Location = new System.Drawing.Point(95, 123);
             this.txtPageUrl.Name = "txtPageUrl";
             this.txtPageUrl.Size = new System.Drawing.Size(279, 20);
             this.txtPageUrl.TabIndex = 6;
@@ -99,7 +119,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 76);
+            this.label3.Location = new System.Drawing.Point(22, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 5;
@@ -107,7 +127,7 @@
             // 
             // txtLink
             // 
-            this.txtLink.Location = new System.Drawing.Point(95, 73);
+            this.txtLink.Location = new System.Drawing.Point(95, 97);
             this.txtLink.Name = "txtLink";
             this.txtLink.Size = new System.Drawing.Size(279, 20);
             this.txtLink.TabIndex = 4;
@@ -115,7 +135,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 49);
+            this.label2.Location = new System.Drawing.Point(27, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 3;
@@ -123,7 +143,7 @@
             // 
             // txtswfUrl
             // 
-            this.txtswfUrl.Location = new System.Drawing.Point(95, 46);
+            this.txtswfUrl.Location = new System.Drawing.Point(95, 71);
             this.txtswfUrl.Name = "txtswfUrl";
             this.txtswfUrl.Size = new System.Drawing.Size(279, 20);
             this.txtswfUrl.TabIndex = 2;
@@ -147,7 +167,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(236, 179);
+            this.button3.Location = new System.Drawing.Point(236, 199);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 7;
@@ -157,7 +177,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(317, 179);
+            this.button2.Location = new System.Drawing.Point(317, 199);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -169,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 212);
+            this.ClientSize = new System.Drawing.Size(404, 232);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
@@ -198,5 +218,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtPlaypath;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtLanguage;
     }
 }

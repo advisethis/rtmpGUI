@@ -22,3 +22,5 @@ C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Main.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Options.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Properties.Resources.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.csproj.GenerateResource.Cache
+\\BIGBLACKBOX\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.exe
+\\BIGBLACKBOX\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.pdb

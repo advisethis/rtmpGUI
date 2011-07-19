@@ -25,7 +25,7 @@ namespace rtmpGUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string[] array = new string[5] { txtTitle.Text, txtswfUrl.Text, txtLink.Text, txtPageUrl.Text, txtPlaypath.Text };
+            string[] array = new string[6] { txtTitle.Text, txtswfUrl.Text, txtLink.Text, txtPageUrl.Text, txtPlaypath.Text, txtLanguage.Text };
             fmain.EditChanel(array);
             this.Hide();
         }

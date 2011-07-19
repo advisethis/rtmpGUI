@@ -32,8 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.locateVLC = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshxmlMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteXmlLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.LocalXMLLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.showCommands = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkUpdatesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.howToMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.channel_name = new System.Windows.Forms.ColumnHeader();
             this.swf_url = new System.Windows.Forms.ColumnHeader();
@@ -49,17 +58,10 @@
             this.submitChannel = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.sysLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsPBar = new System.Windows.Forms.ToolStripProgressBar();
             this.wbApp = new System.Windows.Forms.WebBrowser();
             this.txtCommands = new System.Windows.Forms.TextBox();
-            this.locateVLC = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshxmlMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.remoteXmlLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.LocalXMLLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.showCommands = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkUpdatesMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.howToMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.channel_language = new System.Windows.Forms.ColumnHeader();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -91,10 +93,75 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // locateVLC
+            // 
+            this.locateVLC.Image = global::rtmpGUI.Properties.Resources.application_form_add;
+            this.locateVLC.Name = "locateVLC";
+            this.locateVLC.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.locateVLC.Size = new System.Drawing.Size(208, 22);
+            this.locateVLC.Text = "&Options";
+            this.locateVLC.Click += new System.EventHandler(this.optionsMenu_Click);
+            // 
+            // refreshxmlMenu
+            // 
+            this.refreshxmlMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.remoteXmlLoad,
+            this.LocalXMLLoad});
+            this.refreshxmlMenu.Image = global::rtmpGUI.Properties.Resources.arrow_refresh;
+            this.refreshxmlMenu.Name = "refreshxmlMenu";
+            this.refreshxmlMenu.Size = new System.Drawing.Size(208, 22);
+            this.refreshxmlMenu.Text = "Refresh XMLs";
+            // 
+            // remoteXmlLoad
+            // 
+            this.remoteXmlLoad.Image = global::rtmpGUI.Properties.Resources.world;
+            this.remoteXmlLoad.Name = "remoteXmlLoad";
+            this.remoteXmlLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.remoteXmlLoad.Size = new System.Drawing.Size(156, 22);
+            this.remoteXmlLoad.Text = "&Remote";
+            this.remoteXmlLoad.Click += new System.EventHandler(this.remoteXmlLoad_Click);
+            // 
+            // LocalXMLLoad
+            // 
+            this.LocalXMLLoad.Image = global::rtmpGUI.Properties.Resources.drive;
+            this.LocalXMLLoad.Name = "LocalXMLLoad";
+            this.LocalXMLLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.LocalXMLLoad.Size = new System.Drawing.Size(156, 22);
+            this.LocalXMLLoad.Text = "&Local";
+            this.LocalXMLLoad.Click += new System.EventHandler(this.LocalXMLLoad_Click);
+            // 
+            // showCommands
+            // 
+            this.showCommands.CheckOnClick = true;
+            this.showCommands.Image = global::rtmpGUI.Properties.Resources.application_osx_terminal;
+            this.showCommands.Name = "showCommands";
+            this.showCommands.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.showCommands.Size = new System.Drawing.Size(208, 22);
+            this.showCommands.Text = "&Show Commands";
+            this.showCommands.Click += new System.EventHandler(this.showCommands_Click);
+            // 
+            // checkUpdatesMenu
+            // 
+            this.checkUpdatesMenu.Image = global::rtmpGUI.Properties.Resources.connect;
+            this.checkUpdatesMenu.Name = "checkUpdatesMenu";
+            this.checkUpdatesMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.checkUpdatesMenu.Size = new System.Drawing.Size(208, 22);
+            this.checkUpdatesMenu.Text = "Check &Updates";
+            this.checkUpdatesMenu.Click += new System.EventHandler(this.checkUpdatesMenu_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            // 
+            // exitMenu
+            // 
+            this.exitMenu.Image = global::rtmpGUI.Properties.Resources.cross;
+            this.exitMenu.Name = "exitMenu";
+            this.exitMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitMenu.Size = new System.Drawing.Size(208, 22);
+            this.exitMenu.Text = "E&xit";
+            this.exitMenu.Click += new System.EventHandler(this.exitMenu_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -105,6 +172,25 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
+            // howToMenu
+            // 
+            this.howToMenu.CheckOnClick = true;
+            this.howToMenu.Image = global::rtmpGUI.Properties.Resources.newspaper;
+            this.howToMenu.Name = "howToMenu";
+            this.howToMenu.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.howToMenu.Size = new System.Drawing.Size(149, 22);
+            this.howToMenu.Text = "H&ow To";
+            this.howToMenu.Click += new System.EventHandler(this.howToMenu_Click);
+            // 
+            // aboutMenu
+            // 
+            this.aboutMenu.Image = global::rtmpGUI.Properties.Resources.book_open;
+            this.aboutMenu.Name = "aboutMenu";
+            this.aboutMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.aboutMenu.Size = new System.Drawing.Size(149, 22);
+            this.aboutMenu.Text = "&About";
+            this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
+            // 
             // listView1
             // 
             this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -114,7 +200,8 @@
             this.swf_url,
             this.rtmp_url,
             this.http_url,
-            this.additional_info});
+            this.additional_info,
+            this.channel_language});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.GridLines = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -135,20 +222,24 @@
             // 
             // swf_url
             // 
+            this.swf_url.DisplayIndex = 2;
             this.swf_url.Text = "SWF URL";
             this.swf_url.Width = 80;
             // 
             // rtmp_url
             // 
+            this.rtmp_url.DisplayIndex = 3;
             this.rtmp_url.Text = "Link";
             this.rtmp_url.Width = 80;
             // 
             // http_url
             // 
+            this.http_url.DisplayIndex = 4;
             this.http_url.Text = "Page URL";
             // 
             // additional_info
             // 
+            this.additional_info.DisplayIndex = 5;
             this.additional_info.Text = "Playpath";
             // 
             // contextMenuStrip1
@@ -208,7 +299,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sysLabel});
+            this.sysLabel,
+            this.tsPBar});
             this.statusStrip1.Location = new System.Drawing.Point(0, 323);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(574, 22);
@@ -219,6 +311,13 @@
             // 
             this.sysLabel.Name = "sysLabel";
             this.sysLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tsPBar
+            // 
+            this.tsPBar.Name = "tsPBar";
+            this.tsPBar.Size = new System.Drawing.Size(100, 16);
+            this.tsPBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.tsPBar.Visible = false;
             // 
             // wbApp
             // 
@@ -235,95 +334,20 @@
             // 
             // txtCommands
             // 
+            this.txtCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCommands.Location = new System.Drawing.Point(194, 28);
             this.txtCommands.Multiline = true;
             this.txtCommands.Name = "txtCommands";
             this.txtCommands.Size = new System.Drawing.Size(379, 294);
             this.txtCommands.TabIndex = 4;
             // 
-            // locateVLC
+            // channel_language
             // 
-            this.locateVLC.Image = global::rtmpGUI.Properties.Resources.application_form_add;
-            this.locateVLC.Name = "locateVLC";
-            this.locateVLC.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.locateVLC.Size = new System.Drawing.Size(208, 22);
-            this.locateVLC.Text = "&Options";
-            this.locateVLC.Click += new System.EventHandler(this.optionsMenu_Click);
-            // 
-            // refreshxmlMenu
-            // 
-            this.refreshxmlMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.remoteXmlLoad,
-            this.LocalXMLLoad});
-            this.refreshxmlMenu.Image = global::rtmpGUI.Properties.Resources.arrow_refresh;
-            this.refreshxmlMenu.Name = "refreshxmlMenu";
-            this.refreshxmlMenu.Size = new System.Drawing.Size(208, 22);
-            this.refreshxmlMenu.Text = "Refresh XMLs";
-            // 
-            // remoteXmlLoad
-            // 
-            this.remoteXmlLoad.Image = global::rtmpGUI.Properties.Resources.world;
-            this.remoteXmlLoad.Name = "remoteXmlLoad";
-            this.remoteXmlLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.remoteXmlLoad.Size = new System.Drawing.Size(156, 22);
-            this.remoteXmlLoad.Text = "&Remote";
-            this.remoteXmlLoad.Click += new System.EventHandler(this.remoteXmlLoad_Click);
-            // 
-            // LocalXMLLoad
-            // 
-            this.LocalXMLLoad.Image = global::rtmpGUI.Properties.Resources.drive;
-            this.LocalXMLLoad.Name = "LocalXMLLoad";
-            this.LocalXMLLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.LocalXMLLoad.Size = new System.Drawing.Size(156, 22);
-            this.LocalXMLLoad.Text = "&Local";
-            this.LocalXMLLoad.Click += new System.EventHandler(this.LocalXMLLoad_Click);
-            // 
-            // showCommands
-            // 
-            this.showCommands.CheckOnClick = true;
-            this.showCommands.Image = global::rtmpGUI.Properties.Resources.application_osx_terminal;
-            this.showCommands.Name = "showCommands";
-            this.showCommands.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.showCommands.Size = new System.Drawing.Size(208, 22);
-            this.showCommands.Text = "&Show Commands";
-            this.showCommands.Click += new System.EventHandler(this.showCommands_Click);
-            // 
-            // exitMenu
-            // 
-            this.exitMenu.Image = global::rtmpGUI.Properties.Resources.cross;
-            this.exitMenu.Name = "exitMenu";
-            this.exitMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitMenu.Size = new System.Drawing.Size(208, 22);
-            this.exitMenu.Text = "E&xit";
-            this.exitMenu.Click += new System.EventHandler(this.exitMenu_Click);
-            // 
-            // checkUpdatesMenu
-            // 
-            this.checkUpdatesMenu.Image = global::rtmpGUI.Properties.Resources.connect;
-            this.checkUpdatesMenu.Name = "checkUpdatesMenu";
-            this.checkUpdatesMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.checkUpdatesMenu.Size = new System.Drawing.Size(208, 22);
-            this.checkUpdatesMenu.Text = "Check &Updates";
-            this.checkUpdatesMenu.Click += new System.EventHandler(this.checkUpdatesMenu_Click);
-            // 
-            // howToMenu
-            // 
-            this.howToMenu.CheckOnClick = true;
-            this.howToMenu.Image = global::rtmpGUI.Properties.Resources.newspaper;
-            this.howToMenu.Name = "howToMenu";
-            this.howToMenu.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.howToMenu.Size = new System.Drawing.Size(152, 22);
-            this.howToMenu.Text = "H&ow To";
-            this.howToMenu.Click += new System.EventHandler(this.howToMenu_Click);
-            // 
-            // aboutMenu
-            // 
-            this.aboutMenu.Image = global::rtmpGUI.Properties.Resources.book_open;
-            this.aboutMenu.Name = "aboutMenu";
-            this.aboutMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.aboutMenu.Size = new System.Drawing.Size(152, 22);
-            this.aboutMenu.Text = "&About";
-            this.aboutMenu.Click += new System.EventHandler(this.aboutMenu_Click);
+            this.channel_language.DisplayIndex = 1;
+            this.channel_language.Text = "Language";
+            this.channel_language.Width = 77;
             // 
             // Main
             // 
@@ -368,7 +392,6 @@
         private System.Windows.Forms.ColumnHeader http_url;
         private System.Windows.Forms.ColumnHeader additional_info;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel sysLabel;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem recordChannel;
         private System.Windows.Forms.ToolStripMenuItem showCommands;
@@ -383,6 +406,9 @@
         private System.Windows.Forms.ToolStripMenuItem LocalXMLLoad;
         private System.Windows.Forms.ToolStripMenuItem submitChannel;
         private System.Windows.Forms.ToolStripMenuItem checkUpdatesMenu;
+        private System.Windows.Forms.ToolStripProgressBar tsPBar;
+        public System.Windows.Forms.ToolStripStatusLabel sysLabel;
+        private System.Windows.Forms.ColumnHeader channel_language;
     }
 }
 
