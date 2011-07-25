@@ -16,6 +16,7 @@ namespace rtmpGUI
         string vlcfile = string.Empty;
         string list = string.Empty;
         string updates = string.Empty;
+        string altload = string.Empty;
         public Options()
         {
             InitializeComponent();
@@ -58,12 +59,12 @@ namespace rtmpGUI
                 tw.WriteStartElement("load-list", "");
                 if (chkStartList.Checked == true)
                 {
-                tw.WriteString("remote");
+                    tw.WriteString("remote");
                 }
                 else
                 {
-                tw.WriteString("local");
-                } 
+                    tw.WriteString("local");
+                }
                 tw.WriteEndElement();
 
                 tw.WriteStartElement("updates", "");
@@ -75,6 +76,19 @@ namespace rtmpGUI
                 {
                     tw.WriteString("false");
                 }
+                tw.WriteEndElement();
+
+                tw.WriteStartElement("altpage", "");
+
+                if (chkWebPage.Checked == true)
+                {
+                    tw.WriteAttributeString("load", "true");
+                }
+                else
+                {
+                    tw.WriteAttributeString("load", "false");
+                }
+                tw.WriteString(txtWeb.Text);
                 tw.WriteEndElement();
 
 
@@ -90,6 +104,8 @@ namespace rtmpGUI
             {
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 txtVLCloc.Text = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
+                altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
+                txtWeb.Text = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
 
@@ -112,18 +128,41 @@ namespace rtmpGUI
                     chkCheckUpdates.Checked = false;
                 }
 
+                if (altload == "true")
+                {
+                    chkWebPage.Checked = true;
+                }
+                else
+                {
+                    chkWebPage.Checked = false;
+                }
+
 
             }
             catch (Exception ex)
             {
                 chkStartList.Checked = true;
                 chkCheckUpdates.Checked = true;
+                chkWebPage.Checked = false;
             }
         }
 
         private void Options_Load(object sender, EventArgs e)
         {
-            
+
         }
+
+        private void chkWebPage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkWebPage.Checked == true)
+            {
+                txtWeb.Enabled = true;
+            }
+            else
+            {
+                txtWeb.Enabled = false;
+            }
+        }
+
     }
 }

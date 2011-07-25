@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.ico" />
+    <None Include="Resources\page.png" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\drive.png" />
     <None Include="Resources\book_open.png" />

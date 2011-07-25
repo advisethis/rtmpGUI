@@ -36,10 +36,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chkStartList = new System.Windows.Forms.CheckBox();
+            this.chkWebPage = new System.Windows.Forms.CheckBox();
             this.chkCheckUpdates = new System.Windows.Forms.CheckBox();
+            this.chkStartList = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtWeb = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -71,7 +75,7 @@
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(12, 145);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 56);
+            this.groupBox1.Size = new System.Drawing.Size(381, 56);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "VLC Options";
@@ -98,24 +102,26 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkWebPage);
             this.groupBox2.Controls.Add(this.chkCheckUpdates);
             this.groupBox2.Controls.Add(this.chkStartList);
-            this.groupBox2.Location = new System.Drawing.Point(13, 13);
+            this.groupBox2.Location = new System.Drawing.Point(12, 11);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(379, 126);
+            this.groupBox2.Size = new System.Drawing.Size(381, 85);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program Options";
             // 
-            // chkStartList
+            // chkWebPage
             // 
-            this.chkStartList.AutoSize = true;
-            this.chkStartList.Location = new System.Drawing.Point(6, 19);
-            this.chkStartList.Name = "chkStartList";
-            this.chkStartList.Size = new System.Drawing.Size(197, 17);
-            this.chkStartList.TabIndex = 1;
-            this.chkStartList.Text = "Load remote channel list at start up?";
-            this.chkStartList.UseVisualStyleBackColor = true;
+            this.chkWebPage.AutoSize = true;
+            this.chkWebPage.Location = new System.Drawing.Point(7, 66);
+            this.chkWebPage.Name = "chkWebPage";
+            this.chkWebPage.Size = new System.Drawing.Size(144, 17);
+            this.chkWebPage.TabIndex = 3;
+            this.chkWebPage.Text = "Load alternate webpage.";
+            this.chkWebPage.UseVisualStyleBackColor = true;
+            this.chkWebPage.CheckedChanged += new System.EventHandler(this.chkWebPage_CheckedChanged);
             // 
             // chkCheckUpdates
             // 
@@ -127,11 +133,40 @@
             this.chkCheckUpdates.Text = "Check for updates on startup?";
             this.chkCheckUpdates.UseVisualStyleBackColor = true;
             // 
+            // chkStartList
+            // 
+            this.chkStartList.AutoSize = true;
+            this.chkStartList.Location = new System.Drawing.Point(7, 19);
+            this.chkStartList.Name = "chkStartList";
+            this.chkStartList.Size = new System.Drawing.Size(197, 17);
+            this.chkStartList.TabIndex = 1;
+            this.chkStartList.Text = "Load remote channel list at start up?";
+            this.chkStartList.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtWeb);
+            this.groupBox3.Location = new System.Drawing.Point(12, 99);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(381, 46);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Webpage";
+            // 
+            // txtWeb
+            // 
+            this.txtWeb.Enabled = false;
+            this.txtWeb.Location = new System.Drawing.Point(4, 20);
+            this.txtWeb.Name = "txtWeb";
+            this.txtWeb.Size = new System.Drawing.Size(368, 20);
+            this.txtWeb.TabIndex = 0;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 242);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -145,6 +180,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -160,5 +197,8 @@
         public System.Windows.Forms.TextBox txtVLCloc;
         private System.Windows.Forms.CheckBox chkStartList;
         private System.Windows.Forms.CheckBox chkCheckUpdates;
+        private System.Windows.Forms.CheckBox chkWebPage;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtWeb;
     }
 }

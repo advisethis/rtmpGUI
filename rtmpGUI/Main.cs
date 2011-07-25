@@ -25,6 +25,9 @@ namespace rtmpGUI
         string vlcLoc = string.Empty;
         string list = string.Empty;
         string updates = string.Empty;
+        string altpage = string.Empty;
+        string altload = string.Empty;
+        string homepage = string.Empty;
         HttpWebRequest webconnect;
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
@@ -63,6 +66,11 @@ namespace rtmpGUI
             check.Start();
         }
 
+        private void webpageRefresh_Click(object sender, EventArgs e)
+        {
+            wbApp.Refresh();
+        }
+
         private void showCommands_Click(object sender, EventArgs e)
         {
             if (showCommands.Checked == true)
@@ -98,7 +106,7 @@ namespace rtmpGUI
             }
             else
             {
-                wbApp.Navigate("http://tvlistings.tvguide.com/ListingsWeb/listings/ScrollingGridIFrame.aspx");
+                wbApp.Navigate(homepage);
             }
             
             
@@ -173,6 +181,7 @@ namespace rtmpGUI
                     var safeplay = HttpUtility.UrlEncode(lvi.SubItems[4].Text);
                     var safelang = HttpUtility.UrlEncode(lvi.SubItems[5].Text);
                     sysLabel.Text = connection("http://apps.ohlulz.com/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang);
+                    //txtCommands.Text = "http://apps.ohlulz.com/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang;
                     //sysLabel.Text = connection("http://127.0.0.1/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang);
                 }
             }
@@ -328,7 +337,6 @@ namespace rtmpGUI
             SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
         }
 
-
         private void LoadSettings()
         {
             XmlDocument xDoc = new XmlDocument();
@@ -339,6 +347,8 @@ namespace rtmpGUI
                 vlcLoc = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
+                altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
+                altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
 
                 if (list == "remote")
                 {
@@ -364,6 +374,17 @@ namespace rtmpGUI
                 {
                     //Do jack
                 }
+
+                if (altload == "true")
+                {
+                    homepage = altpage;   
+                }
+                else
+                {
+                    homepage = "http://tvlistings.tvguide.com/ListingsWeb/listings/ScrollingGridIFrame.aspx";
+                }
+                wbApp.Navigate(homepage);
+
             }
             catch (Exception ex)
             {
@@ -379,6 +400,8 @@ namespace rtmpGUI
             {
                 Process pr = new Process();
                 pr.StartInfo.FileName = "cmd.exe";
+                pr.StartInfo.CreateNoWindow = true;
+                pr.StartInfo.UseShellExecute = false;
                 if (playpath.Length == 0)
                 {
                     pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
@@ -460,6 +483,10 @@ namespace rtmpGUI
 
                         tw.WriteStartElement("playpath", string.Empty);
                         tw.WriteString(list.Items[i].SubItems[4].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("language", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[5].Text);
                         tw.WriteEndElement();
 
                         // And close it off.
@@ -585,7 +612,5 @@ namespace rtmpGUI
 
 
         #endregion
-
-
     }
 }

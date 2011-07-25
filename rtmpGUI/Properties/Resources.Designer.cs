@@ -116,6 +116,13 @@ namespace rtmpGUI.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap page {
+            get {
+                object obj = ResourceManager.GetObject("page", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap world {
             get {
                 object obj = ResourceManager.GetObject("world", resourceCulture);
