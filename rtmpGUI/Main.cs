@@ -28,6 +28,8 @@ namespace rtmpGUI
         string altpage = string.Empty;
         string altload = string.Empty;
         string homepage = string.Empty;
+        string suppress = string.Empty;
+        bool supcom = true;
         HttpWebRequest webconnect;
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
@@ -232,7 +234,7 @@ namespace rtmpGUI
                 XmlDocument xDoc = new XmlDocument();
                 listView1.Items.Clear();
                 try
-                {
+                {                   
                     xDoc.Load("http://apps.ohlulz.com/rtmpplayer/list.xml");
                     //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
@@ -349,6 +351,7 @@ namespace rtmpGUI
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
                 altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
                 altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
+                suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
 
                 if (list == "remote")
                 {
@@ -385,6 +388,15 @@ namespace rtmpGUI
                 }
                 wbApp.Navigate(homepage);
 
+                if (suppress == "true")
+                {
+                    supcom = true;
+                }
+                else
+                {
+                    supcom = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -400,8 +412,14 @@ namespace rtmpGUI
             {
                 Process pr = new Process();
                 pr.StartInfo.FileName = "cmd.exe";
-                pr.StartInfo.CreateNoWindow = true;
-                pr.StartInfo.UseShellExecute = false;
+
+                if (supcom == true)
+                {
+                    pr.StartInfo.CreateNoWindow = true;
+                    pr.StartInfo.UseShellExecute = false;
+                }
+                
+                
                 if (playpath.Length == 0)
                 {
                     pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
@@ -510,7 +528,7 @@ namespace rtmpGUI
         {
             webconnect = (HttpWebRequest)HttpWebRequest.Create(url);
 
-            webconnect.UserAgent = "rtmpGUI";
+            webconnect.UserAgent = "rtmpGUI/" + Assembly.GetExecutingAssembly().GetName().Version;
 
             WebResponse Response = webconnect.GetResponse();
             Stream WebStream = Response.GetResponseStream();

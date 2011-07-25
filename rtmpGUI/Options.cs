@@ -17,6 +17,7 @@ namespace rtmpGUI
         string list = string.Empty;
         string updates = string.Empty;
         string altload = string.Empty;
+        string suppress = string.Empty;
         public Options()
         {
             InitializeComponent();
@@ -90,6 +91,17 @@ namespace rtmpGUI
                 }
                 tw.WriteString(txtWeb.Text);
                 tw.WriteEndElement();
+                
+                tw.WriteStartElement("suppress", "");
+                if (chkSuppress.Checked == true)
+                {
+                    tw.WriteString("true");
+                }
+                else
+                {
+                    tw.WriteString("false");
+                }
+                tw.WriteEndElement();
 
 
                 tw.WriteEndElement();
@@ -108,6 +120,7 @@ namespace rtmpGUI
                 txtWeb.Text = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
+                suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
 
 
                 if (list == "remote")
@@ -137,6 +150,15 @@ namespace rtmpGUI
                     chkWebPage.Checked = false;
                 }
 
+                if (suppress == "true")
+                {
+                    chkSuppress.Checked = true;
+                }
+                else
+                {
+                    chkSuppress.Checked = false;
+                }
+
 
             }
             catch (Exception ex)
@@ -144,6 +166,7 @@ namespace rtmpGUI
                 chkStartList.Checked = true;
                 chkCheckUpdates.Checked = true;
                 chkWebPage.Checked = false;
+                chkSuppress.Checked = true;
             }
         }
 

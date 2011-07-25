@@ -41,6 +41,7 @@
             this.chkStartList = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtWeb = new System.Windows.Forms.TextBox();
+            this.chkSuppress = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -73,7 +74,7 @@
             // 
             this.groupBox1.Controls.Add(this.txtVLCloc);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 145);
+            this.groupBox1.Location = new System.Drawing.Point(12, 182);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(381, 56);
             this.groupBox1.TabIndex = 3;
@@ -82,7 +83,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(317, 207);
+            this.button2.Location = new System.Drawing.Point(317, 244);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -92,7 +93,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(236, 207);
+            this.button3.Location = new System.Drawing.Point(236, 244);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 5;
@@ -102,12 +103,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.chkWebPage);
+            this.groupBox2.Controls.Add(this.chkSuppress);
             this.groupBox2.Controls.Add(this.chkCheckUpdates);
             this.groupBox2.Controls.Add(this.chkStartList);
             this.groupBox2.Location = new System.Drawing.Point(12, 11);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(381, 85);
+            this.groupBox2.Size = new System.Drawing.Size(381, 94);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program Options";
@@ -115,7 +116,7 @@
             // chkWebPage
             // 
             this.chkWebPage.AutoSize = true;
-            this.chkWebPage.Location = new System.Drawing.Point(7, 66);
+            this.chkWebPage.Location = new System.Drawing.Point(7, 16);
             this.chkWebPage.Name = "chkWebPage";
             this.chkWebPage.Size = new System.Drawing.Size(144, 17);
             this.chkWebPage.TabIndex = 3;
@@ -145,10 +146,11 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chkWebPage);
             this.groupBox3.Controls.Add(this.txtWeb);
-            this.groupBox3.Location = new System.Drawing.Point(12, 99);
+            this.groupBox3.Location = new System.Drawing.Point(12, 111);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(381, 46);
+            this.groupBox3.Size = new System.Drawing.Size(381, 65);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Webpage";
@@ -156,16 +158,26 @@
             // txtWeb
             // 
             this.txtWeb.Enabled = false;
-            this.txtWeb.Location = new System.Drawing.Point(4, 20);
+            this.txtWeb.Location = new System.Drawing.Point(6, 39);
             this.txtWeb.Name = "txtWeb";
             this.txtWeb.Size = new System.Drawing.Size(368, 20);
             this.txtWeb.TabIndex = 0;
+            // 
+            // chkSuppress
+            // 
+            this.chkSuppress.AutoSize = true;
+            this.chkSuppress.Location = new System.Drawing.Point(7, 67);
+            this.chkSuppress.Name = "chkSuppress";
+            this.chkSuppress.Size = new System.Drawing.Size(138, 17);
+            this.chkSuppress.TabIndex = 3;
+            this.chkSuppress.Text = "Suppress command line";
+            this.chkSuppress.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 242);
+            this.ClientSize = new System.Drawing.Size(404, 281);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button3);
@@ -200,5 +212,6 @@
         private System.Windows.Forms.CheckBox chkWebPage;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtWeb;
+        private System.Windows.Forms.CheckBox chkSuppress;
     }
 }
