@@ -36,12 +36,12 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chkWebPage = new System.Windows.Forms.CheckBox();
+            this.chkSuppress = new System.Windows.Forms.CheckBox();
             this.chkCheckUpdates = new System.Windows.Forms.CheckBox();
             this.chkStartList = new System.Windows.Forms.CheckBox();
+            this.chkWebPage = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtWeb = new System.Windows.Forms.TextBox();
-            this.chkSuppress = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -53,7 +53,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Locate VLC";
+            this.button1.Text = "Locate";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -79,7 +79,7 @@
             this.groupBox1.Size = new System.Drawing.Size(381, 56);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "VLC Options";
+            this.groupBox1.Text = "Player Options";
             // 
             // button2
             // 
@@ -113,16 +113,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program Options";
             // 
-            // chkWebPage
+            // chkSuppress
             // 
-            this.chkWebPage.AutoSize = true;
-            this.chkWebPage.Location = new System.Drawing.Point(7, 16);
-            this.chkWebPage.Name = "chkWebPage";
-            this.chkWebPage.Size = new System.Drawing.Size(144, 17);
-            this.chkWebPage.TabIndex = 3;
-            this.chkWebPage.Text = "Load alternate webpage.";
-            this.chkWebPage.UseVisualStyleBackColor = true;
-            this.chkWebPage.CheckedChanged += new System.EventHandler(this.chkWebPage_CheckedChanged);
+            this.chkSuppress.AutoSize = true;
+            this.chkSuppress.Location = new System.Drawing.Point(7, 67);
+            this.chkSuppress.Name = "chkSuppress";
+            this.chkSuppress.Size = new System.Drawing.Size(138, 17);
+            this.chkSuppress.TabIndex = 3;
+            this.chkSuppress.Text = "Suppress command line";
+            this.chkSuppress.UseVisualStyleBackColor = true;
             // 
             // chkCheckUpdates
             // 
@@ -144,6 +143,17 @@
             this.chkStartList.Text = "Load remote channel list at start up?";
             this.chkStartList.UseVisualStyleBackColor = true;
             // 
+            // chkWebPage
+            // 
+            this.chkWebPage.AutoSize = true;
+            this.chkWebPage.Location = new System.Drawing.Point(7, 16);
+            this.chkWebPage.Name = "chkWebPage";
+            this.chkWebPage.Size = new System.Drawing.Size(144, 17);
+            this.chkWebPage.TabIndex = 3;
+            this.chkWebPage.Text = "Load alternate webpage.";
+            this.chkWebPage.UseVisualStyleBackColor = true;
+            this.chkWebPage.CheckedChanged += new System.EventHandler(this.chkWebPage_CheckedChanged);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.chkWebPage);
@@ -162,16 +172,6 @@
             this.txtWeb.Name = "txtWeb";
             this.txtWeb.Size = new System.Drawing.Size(368, 20);
             this.txtWeb.TabIndex = 0;
-            // 
-            // chkSuppress
-            // 
-            this.chkSuppress.AutoSize = true;
-            this.chkSuppress.Location = new System.Drawing.Point(7, 67);
-            this.chkSuppress.Name = "chkSuppress";
-            this.chkSuppress.Size = new System.Drawing.Size(138, 17);
-            this.chkSuppress.TabIndex = 3;
-            this.chkSuppress.Text = "Suppress command line";
-            this.chkSuppress.UseVisualStyleBackColor = true;
             // 
             // Options
             // 

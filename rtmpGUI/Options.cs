@@ -13,6 +13,7 @@ namespace rtmpGUI
 {
     public partial class Options : Form
     {
+        Main frm = new Main();
         string vlcfile = string.Empty;
         string list = string.Empty;
         string updates = string.Empty;
@@ -21,7 +22,6 @@ namespace rtmpGUI
         public Options()
         {
             InitializeComponent();
-            LoadSettings();
         }
 
         private void button1_Click(object sender, EventArgs e)

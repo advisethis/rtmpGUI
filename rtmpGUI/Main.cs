@@ -29,15 +29,20 @@ namespace rtmpGUI
         string altload = string.Empty;
         string homepage = string.Empty;
         string suppress = string.Empty;
-        bool supcom = true;
+
+        string localloadloc = string.Empty;
+        string localsaveloc = string.Empty;
+
+        public bool supcom = true;
         HttpWebRequest webconnect;
+        
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
 
         public Main()
         {
             InitializeComponent();
-
+            this.Font = SystemFonts.MessageBoxFont;
         }
         #region form_stuff
         private void Form1_Load(object sender, EventArgs e)
@@ -48,8 +53,10 @@ namespace rtmpGUI
         #region file_menu
         private void optionsMenu_Click(object sender, EventArgs e)
         {
-            Form Options = new Options();
-            Options.Show();
+            using (Form Options = new Options())
+            {
+                Options.ShowDialog(this);
+            }
         }
 
         private void remoteXmlLoad_Click(object sender, EventArgs e)
@@ -62,6 +69,7 @@ namespace rtmpGUI
 
         private void LocalXMLLoad_Click(object sender, EventArgs e)
         {
+
             ThreadStart update = new ThreadStart(LocalXML);
             Thread check = new Thread(update);
             check.Priority = ThreadPriority.Normal;
@@ -116,8 +124,10 @@ namespace rtmpGUI
 
         private void aboutMenu_Click(object sender, EventArgs e)
         {
-            Form AboutBox1 = new AboutBox1();
-            AboutBox1.Show();
+            using (Form AboutBox1 = new AboutBox1())
+            {
+                AboutBox1.ShowDialog();
+            }
         }
         #endregion
 
@@ -125,8 +135,10 @@ namespace rtmpGUI
         #region context_menu
         private void addChannel_Click(object sender, EventArgs e)
         {
-            Form Channel = new AddChannel(this);
-            Channel.Show(this);
+            using (Form Channel = new AddChannel(this))
+            {
+                Channel.ShowDialog(this);
+            }
         }
 
         private void recordChannel_Click(object sender, EventArgs e)
@@ -141,19 +153,20 @@ namespace rtmpGUI
         private void editChannel_Click(object sender, EventArgs e)
         {
 
-            EditChannel ec = new EditChannel(this);
-
-            foreach (ListViewItem lvi in listView1.SelectedItems)
+            using (EditChannel ec = new EditChannel(this))
             {
-                ec.txtTitle.Text = lvi.SubItems[0].Text;
-                ec.txtswfUrl.Text = lvi.SubItems[1].Text;
-                ec.txtLink.Text = lvi.SubItems[2].Text;
-                ec.txtPageUrl.Text = lvi.SubItems[3].Text;
-                ec.txtPlaypath.Text = lvi.SubItems[4].Text;
-                ec.txtLanguage.Text = lvi.SubItems[5].Text;
-            }
+                foreach (ListViewItem lvi in listView1.SelectedItems)
+                {
+                    ec.txtTitle.Text = lvi.SubItems[0].Text;
+                    ec.txtswfUrl.Text = lvi.SubItems[1].Text;
+                    ec.txtLink.Text = lvi.SubItems[2].Text;
+                    ec.txtPageUrl.Text = lvi.SubItems[3].Text;
+                    ec.txtPlaypath.Text = lvi.SubItems[4].Text;
+                    ec.txtLanguage.Text = lvi.SubItems[5].Text;
+                }
 
-            ec.Show(this);
+                ec.ShowDialog(this);
+            }
         }
 
         private void deleteChannel_Click(object sender, EventArgs e)
@@ -166,7 +179,12 @@ namespace rtmpGUI
 
         private void saveChannels_Click(object sender, EventArgs e)
         {
-            SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                localsaveloc = saveDialog.FileName.ToString();
+                SaveList(listView1, localsaveloc);
+            }
         }
 
 
@@ -204,7 +222,6 @@ namespace rtmpGUI
         {
             foreach (ListViewItem lvi in listView1.SelectedItems)
             {
-                LoadSettings();
                 RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text);
                 sysLabel.Text = "Loading : " + lvi.SubItems[0].Text;
             }
@@ -270,11 +287,18 @@ namespace rtmpGUI
             }
             else
             {
+                if (localloadloc == string.Empty)
+                {
+                    if (openDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        localloadloc = openDialog.FileName.ToString();
+                    }
+                }
                 XmlDocument xDoc = new XmlDocument();
                 listView1.Items.Clear();
                 try
                 {
-                    xDoc.Load(Application.StartupPath.ToString() + "\\channels.xml");
+                    xDoc.Load(localloadloc);
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
 
@@ -314,7 +338,16 @@ namespace rtmpGUI
                 lvi.SubItems.Add(array[5]);
                 this.listView1.Items.Add(lvi);
             }
-            SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
+
+            if (localsaveloc == string.Empty)
+            {
+                saveChannels_Click(null, null);
+            }
+            else
+            {
+                SaveList(listView1, localsaveloc);
+            }
+            
         }
 
         public void EditChanel(string[] array)
@@ -336,10 +369,17 @@ namespace rtmpGUI
                     lvi.SubItems[5].Text = array[5];
                 }
             }
-            SaveList(listView1, Application.StartupPath.ToString() + "\\channels.xml");
+            if (localsaveloc == string.Empty)
+            {
+                saveChannels_Click(null, null);
+            }
+            else
+            {
+                SaveList(listView1, localsaveloc);
+            }
         }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
             XmlDocument xDoc = new XmlDocument();
             Options f2 = new Options();
@@ -422,12 +462,12 @@ namespace rtmpGUI
                 
                 if (playpath.Length == 0)
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
                     txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
                     txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
                 }
                 
@@ -450,12 +490,12 @@ namespace rtmpGUI
                 pr.StartInfo.FileName = "cmd.exe";
                 if (playpath.Length == 0)
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
                     txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
                     txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
                 }
                 pr.Start();
@@ -561,7 +601,6 @@ namespace rtmpGUI
                 {
                     sysLabel.Text = "Update Status : A new version of rtmpGUI is available.";
                     UpdateProgram("http://ohlulz.com/download.php?f=rtmpGUI.exe");
-                    //System.Diagnostics.Process.Start("http://ohlulz.com/download.php?f=rtmpGUI.rar");
                 }
             }
             catch (Exception ex)

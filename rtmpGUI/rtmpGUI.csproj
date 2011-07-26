@@ -96,6 +96,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
@@ -138,6 +139,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.ico" />
+    <None Include="Resources\rtmpgui1.png" />
+    <None Include="Resources\rtmpgui.png" />
     <None Include="Resources\page.png" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\drive.png" />
