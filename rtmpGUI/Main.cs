@@ -33,6 +33,9 @@ namespace rtmpGUI
         string localloadloc = string.Empty;
         string localsaveloc = string.Empty;
 
+        string apiUser = string.Empty;
+        string apiKey = string.Empty;
+
         public bool supcom = true;
         HttpWebRequest webconnect;
         
@@ -200,9 +203,9 @@ namespace rtmpGUI
                     var safepage = HttpUtility.UrlEncode(lvi.SubItems[3].Text);
                     var safeplay = HttpUtility.UrlEncode(lvi.SubItems[4].Text);
                     var safelang = HttpUtility.UrlEncode(lvi.SubItems[5].Text);
-                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang);
-                    //txtCommands.Text = "http://apps.ohlulz.com/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang;
-                    //sysLabel.Text = connection("http://127.0.0.1/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang);
+                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
+                    //txtCommands.Text = "http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&apiUser=" + apiUser + "&apiKey=" + apiKey;
+                    //sysLabel.Text = connection("http://127.0.0.1/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
                 }
             }
             catch (Exception ex)
@@ -220,6 +223,7 @@ namespace rtmpGUI
 
         private void listView1_DoubleClick(object sender, System.EventArgs e)
         {
+            RefreshSettings();
             foreach (ListViewItem lvi in listView1.SelectedItems)
             {
                 RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text);
@@ -252,7 +256,7 @@ namespace rtmpGUI
                 listView1.Items.Clear();
                 try
                 {                   
-                    xDoc.Load("http://apps.ohlulz.com/rtmpplayer/list.xml");
+                    xDoc.Load("http://apps.ohlulz.com/rtmpgui/list.xml");
                     //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
@@ -393,6 +397,9 @@ namespace rtmpGUI
                 altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
 
+                apiUser = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
+                apiKey = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
+
                 if (list == "remote")
                 {
                     ThreadStart update = new ThreadStart(RemoteXML);
@@ -444,6 +451,50 @@ namespace rtmpGUI
                 MessageBox.Show("There was an error with the config file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 DebugLog(ex.ToString());
             }
+        }
+
+        public void RefreshSettings()
+        {
+            XmlDocument xDoc = new XmlDocument();
+            Options f2 = new Options();
+            try
+            {
+                xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
+                vlcLoc = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
+                altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
+                altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
+                suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
+
+                apiUser = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
+                apiKey = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
+
+                if (altload == "true")
+                {
+                    homepage = altpage;
+                }
+                else
+                {
+                    homepage = "http://tvlistings.tvguide.com/ListingsWeb/listings/ScrollingGridIFrame.aspx";
+                }
+                wbApp.Navigate(homepage);
+
+                if (suppress == "true")
+                {
+                    supcom = true;
+                }
+                else
+                {
+                    supcom = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                f2.Show();
+                MessageBox.Show("There was an error with the config file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DebugLog(ex.ToString());
+            }
+
         }
 
         private void RunStream(string swfUrl, string link, string pageUrl, string playpath)
@@ -588,7 +639,7 @@ namespace rtmpGUI
         {
             try
             {
-                string data = connection("http://apps.ohlulz.com/rtmpplayer/version.txt");
+                string data = connection("http://apps.ohlulz.com/rtmpgui/version.txt");
 
                 var downloadedVersion = new Version(data.Substring("version=".Length));
 

@@ -91,7 +91,7 @@ namespace rtmpGUI
                 }
                 tw.WriteString(txtWeb.Text);
                 tw.WriteEndElement();
-                
+
                 tw.WriteStartElement("suppress", "");
                 if (chkSuppress.Checked == true)
                 {
@@ -103,6 +103,11 @@ namespace rtmpGUI
                 }
                 tw.WriteEndElement();
 
+                tw.WriteStartElement("api", "");
+                tw.WriteAttributeString("user", txtAPIuser.Text);
+                tw.WriteAttributeString("key", txtAPIkey.Text);
+                tw.WriteString(txtWeb.Text);
+                tw.WriteEndElement();
 
                 tw.WriteEndElement();
                 tw.WriteEndDocument();
@@ -116,6 +121,10 @@ namespace rtmpGUI
             {
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 txtVLCloc.Text = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
+
+                txtAPIuser.Text = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
+                txtAPIkey.Text = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
+                
                 altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
                 txtWeb.Text = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
@@ -172,7 +181,7 @@ namespace rtmpGUI
 
         private void Options_Load(object sender, EventArgs e)
         {
-
+            LoadSettings();
         }
 
         private void chkWebPage_CheckedChanged(object sender, EventArgs e)
@@ -185,6 +194,11 @@ namespace rtmpGUI
             {
                 txtWeb.Enabled = false;
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://apps.ohlulz.com/rtmpgui/users/"); 
         }
 
     }

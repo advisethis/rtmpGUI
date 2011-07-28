@@ -42,14 +42,27 @@
             this.chkWebPage = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtWeb = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtAPIkey = new System.Windows.Forms.TextBox();
+            this.txtAPIuser = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(299, 19);
+            this.button1.Location = new System.Drawing.Point(289, 19);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -67,23 +80,23 @@
             this.txtVLCloc.Enabled = false;
             this.txtVLCloc.Location = new System.Drawing.Point(6, 22);
             this.txtVLCloc.Name = "txtVLCloc";
-            this.txtVLCloc.Size = new System.Drawing.Size(287, 20);
+            this.txtVLCloc.Size = new System.Drawing.Size(277, 20);
             this.txtVLCloc.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtVLCloc);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 182);
+            this.groupBox1.Location = new System.Drawing.Point(6, 122);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 56);
+            this.groupBox1.Size = new System.Drawing.Size(370, 56);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Player Options";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(317, 244);
+            this.button2.Location = new System.Drawing.Point(329, 243);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -93,7 +106,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(236, 244);
+            this.button3.Location = new System.Drawing.Point(248, 243);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 5;
@@ -106,9 +119,9 @@
             this.groupBox2.Controls.Add(this.chkSuppress);
             this.groupBox2.Controls.Add(this.chkCheckUpdates);
             this.groupBox2.Controls.Add(this.chkStartList);
-            this.groupBox2.Location = new System.Drawing.Point(12, 11);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(381, 94);
+            this.groupBox2.Size = new System.Drawing.Size(370, 94);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program Options";
@@ -158,9 +171,9 @@
             // 
             this.groupBox3.Controls.Add(this.chkWebPage);
             this.groupBox3.Controls.Add(this.txtWeb);
-            this.groupBox3.Location = new System.Drawing.Point(12, 111);
+            this.groupBox3.Location = new System.Drawing.Point(6, 116);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(381, 65);
+            this.groupBox3.Size = new System.Drawing.Size(370, 65);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Webpage";
@@ -170,19 +183,109 @@
             this.txtWeb.Enabled = false;
             this.txtWeb.Location = new System.Drawing.Point(6, 39);
             this.txtWeb.Name = "txtWeb";
-            this.txtWeb.Size = new System.Drawing.Size(368, 20);
+            this.txtWeb.Size = new System.Drawing.Size(358, 20);
             this.txtWeb.TabIndex = 0;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(392, 225);
+            this.tabControl1.TabIndex = 8;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(384, 199);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Program Options";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(384, 199);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Network Options";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.linkLabel1);
+            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.txtAPIkey);
+            this.groupBox4.Controls.Add(this.txtAPIuser);
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(370, 89);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "API Information";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel1.Location = new System.Drawing.Point(273, 68);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(90, 13);
+            this.linkLabel1.TabIndex = 4;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Register for a key";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "API Key :";
+            // 
+            // txtAPIkey
+            // 
+            this.txtAPIkey.Location = new System.Drawing.Point(79, 45);
+            this.txtAPIkey.Name = "txtAPIkey";
+            this.txtAPIkey.Size = new System.Drawing.Size(284, 20);
+            this.txtAPIkey.TabIndex = 2;
+            // 
+            // txtAPIuser
+            // 
+            this.txtAPIuser.Location = new System.Drawing.Point(79, 19);
+            this.txtAPIuser.Name = "txtAPIuser";
+            this.txtAPIuser.Size = new System.Drawing.Size(285, 20);
+            this.txtAPIuser.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Username :";
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 281);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(414, 281);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Options";
@@ -194,6 +297,11 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -213,5 +321,14 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtWeb;
         private System.Windows.Forms.CheckBox chkSuppress;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtAPIkey;
+        private System.Windows.Forms.TextBox txtAPIuser;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
