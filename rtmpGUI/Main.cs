@@ -38,7 +38,7 @@ namespace rtmpGUI
 
         public bool supcom = true;
         HttpWebRequest webconnect;
-        
+
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
 
@@ -51,6 +51,11 @@ namespace rtmpGUI
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadSettings();
+        }
+
+        private void DonateLabel_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://ohlulz.com/donate.php");
         }
 
         #region file_menu
@@ -121,8 +126,8 @@ namespace rtmpGUI
             {
                 wbApp.Navigate(homepage);
             }
-            
-            
+
+
         }
 
         private void aboutMenu_Click(object sender, EventArgs e)
@@ -148,7 +153,7 @@ namespace rtmpGUI
         {
             foreach (ListViewItem lvi in listView1.SelectedItems)
             {
-                RecordStream(lvi.SubItems[0].Text, lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text);
+                RecordStream(lvi.SubItems[0].Text, lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
             }
 
         }
@@ -166,6 +171,7 @@ namespace rtmpGUI
                     ec.txtPageUrl.Text = lvi.SubItems[3].Text;
                     ec.txtPlaypath.Text = lvi.SubItems[4].Text;
                     ec.txtLanguage.Text = lvi.SubItems[5].Text;
+                    ec.txtAdvanced.Text = lvi.SubItems[6].Text;
                 }
 
                 ec.ShowDialog(this);
@@ -203,9 +209,10 @@ namespace rtmpGUI
                     var safepage = HttpUtility.UrlEncode(lvi.SubItems[3].Text);
                     var safeplay = HttpUtility.UrlEncode(lvi.SubItems[4].Text);
                     var safelang = HttpUtility.UrlEncode(lvi.SubItems[5].Text);
-                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
-                    //txtCommands.Text = "http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&apiUser=" + apiUser + "&apiKey=" + apiKey;
-                    //sysLabel.Text = connection("http://127.0.0.1/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
+                    var safeadvanced = HttpUtility.UrlEncode(lvi.SubItems[6].Text);
+                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
+                    //txtCommands.Text = "http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey;
+                    //sysLabel.Text = connection("http://127.0.0.1/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
                 }
             }
             catch (Exception ex)
@@ -226,7 +233,7 @@ namespace rtmpGUI
             RefreshSettings();
             foreach (ListViewItem lvi in listView1.SelectedItems)
             {
-                RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text);
+                RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
                 sysLabel.Text = "Loading : " + lvi.SubItems[0].Text;
             }
         }
@@ -255,7 +262,7 @@ namespace rtmpGUI
                 XmlDocument xDoc = new XmlDocument();
                 listView1.Items.Clear();
                 try
-                {                   
+                {
                     xDoc.Load("http://apps.ohlulz.com/rtmpgui/list.xml");
                     //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
@@ -269,7 +276,7 @@ namespace rtmpGUI
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("pageUrl")[i].InnerText);
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("playpath")[i].InnerText);
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("language")[i].InnerText);
-
+                        lvi.SubItems.Add(xDoc.GetElementsByTagName("advanced")[i].InnerText);
                         i++;
                     }
                 }
@@ -314,6 +321,8 @@ namespace rtmpGUI
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("pageUrl")[i].InnerText);
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("playpath")[i].InnerText);
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("language")[i].InnerText);
+                        lvi.SubItems.Add(xDoc.GetElementsByTagName("advanced")[i].InnerText);
+                        
                         i++;
                     }
                 }
@@ -340,6 +349,7 @@ namespace rtmpGUI
                 lvi.SubItems.Add(array[3]);
                 lvi.SubItems.Add(array[4]);
                 lvi.SubItems.Add(array[5]);
+                lvi.SubItems.Add(array[6]);
                 this.listView1.Items.Add(lvi);
             }
 
@@ -351,7 +361,7 @@ namespace rtmpGUI
             {
                 SaveList(listView1, localsaveloc);
             }
-            
+
         }
 
         public void EditChanel(string[] array)
@@ -371,6 +381,7 @@ namespace rtmpGUI
                     lvi.SubItems[3].Text = array[3];
                     lvi.SubItems[4].Text = array[4];
                     lvi.SubItems[5].Text = array[5];
+                    lvi.SubItems[6].Text = array[6];
                 }
             }
             if (localsaveloc == string.Empty)
@@ -415,9 +426,6 @@ namespace rtmpGUI
 
                 if (updates == "true")
                 {
-                    /*ThreadStart update = new ThreadStart(CheckUpdates);
-                    Thread updatecheck = new Thread(update);
-                    updatecheck.Start();*/
                     CheckUpdates();
                 }
                 else
@@ -427,7 +435,7 @@ namespace rtmpGUI
 
                 if (altload == "true")
                 {
-                    homepage = altpage;   
+                    homepage = altpage;
                 }
                 else
                 {
@@ -497,7 +505,7 @@ namespace rtmpGUI
 
         }
 
-        private void RunStream(string swfUrl, string link, string pageUrl, string playpath)
+        private void RunStream(string swfUrl, string link, string pageUrl, string playpath, string advanced)
         {
             try
             {
@@ -509,19 +517,19 @@ namespace rtmpGUI
                     pr.StartInfo.CreateNoWindow = true;
                     pr.StartInfo.UseShellExecute = false;
                 }
-                
-                
+
+
                 if (playpath.Length == 0)
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
                 }
-                
+
                 pr.Start();
             }
             catch (Exception ex)
@@ -531,7 +539,7 @@ namespace rtmpGUI
             }
         }
 
-        private void RecordStream(string title, string swfUrl, string link, string pageUrl, string playpath)
+        private void RecordStream(string title, string swfUrl, string link, string pageUrl, string playpath, string advanced)
         {
             try
             {
@@ -541,13 +549,13 @@ namespace rtmpGUI
                 pr.StartInfo.FileName = "cmd.exe";
                 if (playpath.Length == 0)
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " -o " + title + "-" + DateTime.Now.ToString(format) + ".flv";
                 }
                 pr.Start();
             }
@@ -596,6 +604,10 @@ namespace rtmpGUI
 
                         tw.WriteStartElement("language", string.Empty);
                         tw.WriteString(list.Items[i].SubItems[5].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("advanced", string.Empty);
+                        tw.WriteString(list.Items[i].SubItems[6].Text);
                         tw.WriteEndElement();
 
                         // And close it off.

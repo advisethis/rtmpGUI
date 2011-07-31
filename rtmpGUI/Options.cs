@@ -124,7 +124,7 @@ namespace rtmpGUI
 
                 txtAPIuser.Text = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
                 txtAPIkey.Text = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
-                
+
                 altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
                 txtWeb.Text = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
@@ -198,7 +198,7 @@ namespace rtmpGUI
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://apps.ohlulz.com/rtmpgui/users/"); 
+            System.Diagnostics.Process.Start("http://apps.ohlulz.com/rtmpgui/users/");
         }
 
     }

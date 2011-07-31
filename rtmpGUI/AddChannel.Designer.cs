@@ -44,11 +44,15 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.txtAdvanced = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.txtAdvanced);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtLanguage);
             this.groupBox1.Controls.Add(this.label5);
@@ -63,7 +67,7 @@
             this.groupBox1.Controls.Add(this.txtTitle);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 181);
+            this.groupBox1.Size = new System.Drawing.Size(380, 204);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Channel Info";
@@ -82,7 +86,7 @@
             this.txtLanguage.Location = new System.Drawing.Point(95, 45);
             this.txtLanguage.Name = "txtLanguage";
             this.txtLanguage.Size = new System.Drawing.Size(279, 20);
-            this.txtLanguage.TabIndex = 10;
+            this.txtLanguage.TabIndex = 1;
             // 
             // label5
             // 
@@ -98,7 +102,7 @@
             this.txtPlaypath.Location = new System.Drawing.Point(95, 149);
             this.txtPlaypath.Name = "txtPlaypath";
             this.txtPlaypath.Size = new System.Drawing.Size(279, 20);
-            this.txtPlaypath.TabIndex = 8;
+            this.txtPlaypath.TabIndex = 5;
             // 
             // label4
             // 
@@ -114,7 +118,7 @@
             this.txtPageUrl.Location = new System.Drawing.Point(95, 123);
             this.txtPageUrl.Name = "txtPageUrl";
             this.txtPageUrl.Size = new System.Drawing.Size(279, 20);
-            this.txtPageUrl.TabIndex = 6;
+            this.txtPageUrl.TabIndex = 4;
             // 
             // label3
             // 
@@ -130,7 +134,7 @@
             this.txtLink.Location = new System.Drawing.Point(95, 97);
             this.txtLink.Name = "txtLink";
             this.txtLink.Size = new System.Drawing.Size(279, 20);
-            this.txtLink.TabIndex = 4;
+            this.txtLink.TabIndex = 3;
             // 
             // label2
             // 
@@ -167,29 +171,45 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(236, 199);
+            this.button3.Location = new System.Drawing.Point(236, 222);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
+            this.button3.TabIndex = 8;
             this.button3.Text = "Cancel";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(317, 199);
+            this.button2.Location = new System.Drawing.Point(317, 222);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
+            this.button2.TabIndex = 7;
             this.button2.Text = "Okay";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // txtAdvanced
+            // 
+            this.txtAdvanced.Location = new System.Drawing.Point(95, 173);
+            this.txtAdvanced.Name = "txtAdvanced";
+            this.txtAdvanced.Size = new System.Drawing.Size(279, 20);
+            this.txtAdvanced.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 176);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Advanced :";
             // 
             // AddChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 232);
+            this.ClientSize = new System.Drawing.Size(404, 257);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
@@ -220,5 +240,7 @@
         private System.Windows.Forms.TextBox txtPlaypath;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtLanguage;
+        private System.Windows.Forms.TextBox txtAdvanced;
+        private System.Windows.Forms.Label label7;
     }
 }

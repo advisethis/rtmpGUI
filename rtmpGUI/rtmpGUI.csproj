@@ -139,6 +139,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.ico" />
+    <None Include="Resources\blue-document-share.png" />
+    <None Include="Resources\blue-document--pencil.png" />
+    <None Include="Resources\delete1.png" />
+    <None Include="Resources\edit1.png" />
+    <None Include="Resources\new1.png" />
+    <None Include="Resources\inbox-upload.png" />
+    <None Include="Resources\record.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\new.png" />
     <None Include="Resources\rtmpgui1.png" />
     <None Include="Resources\rtmpgui.png" />
     <None Include="Resources\page.png" />
