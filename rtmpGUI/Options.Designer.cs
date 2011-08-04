@@ -45,6 +45,9 @@
             this.txtWeb = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.txtLocList = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -53,18 +56,15 @@
             this.txtAPIuser = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.txtLocList = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.findChannels = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -160,6 +160,7 @@
             this.chkStartList.TabIndex = 1;
             this.chkStartList.Text = "Load remote channel list at start up?";
             this.chkStartList.UseVisualStyleBackColor = true;
+            this.chkStartList.CheckedChanged += new System.EventHandler(this.chkStartList_CheckedChanged);
             // 
             // chkWebPage
             // 
@@ -213,6 +214,35 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Program Options";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.button4);
+            this.groupBox5.Controls.Add(this.txtLocList);
+            this.groupBox5.Controls.Add(this.chkStartList);
+            this.groupBox5.Location = new System.Drawing.Point(8, 80);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(370, 75);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Channel List Options";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(289, 39);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Locate";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // txtLocList
+            // 
+            this.txtLocList.Location = new System.Drawing.Point(6, 42);
+            this.txtLocList.Name = "txtLocList";
+            this.txtLocList.Size = new System.Drawing.Size(277, 20);
+            this.txtLocList.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -291,35 +321,6 @@
             this.imageList1.Images.SetKeyName(0, "application--pencil.png");
             this.imageList1.Images.SetKeyName(1, "servers-network.png");
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.txtLocList);
-            this.groupBox5.Controls.Add(this.chkStartList);
-            this.groupBox5.Location = new System.Drawing.Point(8, 80);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(370, 75);
-            this.groupBox5.TabIndex = 7;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Channel Lsit Options";
-            // 
-            // txtLocList
-            // 
-            this.txtLocList.Enabled = false;
-            this.txtLocList.Location = new System.Drawing.Point(6, 42);
-            this.txtLocList.Name = "txtLocList";
-            this.txtLocList.Size = new System.Drawing.Size(277, 20);
-            this.txtLocList.TabIndex = 0;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(289, 39);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Locate";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // findChannels
             // 
             this.findChannels.FileName = "openFileDialog1";
@@ -345,11 +346,11 @@
             this.groupBox3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }

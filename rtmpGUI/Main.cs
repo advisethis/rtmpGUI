@@ -402,7 +402,7 @@ namespace rtmpGUI
             {
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 vlcLoc = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
-                list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
+                list = xDoc.SelectSingleNode("/rtmpGUI/list/@remote").Value;
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
                 altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
                 altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
@@ -411,7 +411,7 @@ namespace rtmpGUI
                 apiUser = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
                 apiKey = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
 
-                if (list == "remote")
+                if (list == "true")
                 {
                     ThreadStart update = new ThreadStart(RemoteXML);
                     Thread check = new Thread(update);
@@ -419,6 +419,7 @@ namespace rtmpGUI
                 }
                 else
                 {
+                    localloadloc = xDoc.GetElementsByTagName("list")[0].InnerText;
                     ThreadStart update = new ThreadStart(LocalXML);
                     Thread check = new Thread(update);
                     check.Start();
@@ -469,22 +470,10 @@ namespace rtmpGUI
             {
                 xDoc.Load(Application.StartupPath.ToString() + "\\config.xml");
                 vlcLoc = xDoc.GetElementsByTagName("vlc-loc")[0].InnerText;
-                altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
-                altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
 
                 apiUser = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
                 apiKey = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
-
-                if (altload == "true")
-                {
-                    homepage = altpage;
-                }
-                else
-                {
-                    homepage = "http://tvlistings.tvguide.com/ListingsWeb/listings/ScrollingGridIFrame.aspx";
-                }
-                wbApp.Navigate(homepage);
 
                 if (suppress == "true")
                 {

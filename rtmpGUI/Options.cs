@@ -22,6 +22,10 @@ namespace rtmpGUI
         public Options()
         {
             InitializeComponent();
+
+            tabControl1.ImageList = imageList1;
+            tabPage1.ImageIndex = 0;
+            tabPage2.ImageIndex = 1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,16 +37,25 @@ namespace rtmpGUI
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             SaveSettings();
             this.Hide();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (findChannels.ShowDialog() == DialogResult.OK)
+            {
+                txtLocList.Text = findChannels.FileName.ToString();
+            }
+        }
+
 
         public void SaveSettings()
         {
@@ -57,15 +70,17 @@ namespace rtmpGUI
                 tw.WriteEndElement();
 
 
-                tw.WriteStartElement("load-list", "");
+                tw.WriteStartElement("list", "");
                 if (chkStartList.Checked == true)
                 {
-                    tw.WriteString("remote");
+                    tw.WriteAttributeString("remote", "true");
                 }
                 else
                 {
-                    tw.WriteString("local");
+                    tw.WriteAttributeString("remote", "false");
+                    tw.WriteString(txtLocList.Text);
                 }
+                
                 tw.WriteEndElement();
 
                 tw.WriteStartElement("updates", "");
@@ -80,7 +95,6 @@ namespace rtmpGUI
                 tw.WriteEndElement();
 
                 tw.WriteStartElement("altpage", "");
-
                 if (chkWebPage.Checked == true)
                 {
                     tw.WriteAttributeString("load", "true");
@@ -106,7 +120,6 @@ namespace rtmpGUI
                 tw.WriteStartElement("api", "");
                 tw.WriteAttributeString("user", txtAPIuser.Text);
                 tw.WriteAttributeString("key", txtAPIkey.Text);
-                tw.WriteString(txtWeb.Text);
                 tw.WriteEndElement();
 
                 tw.WriteEndElement();
@@ -127,12 +140,15 @@ namespace rtmpGUI
 
                 altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
                 txtWeb.Text = xDoc.GetElementsByTagName("altpage")[0].InnerText;
-                list = xDoc.GetElementsByTagName("load-list")[0].InnerText;
+
+                list = xDoc.SelectSingleNode("/rtmpGUI/list/@remote").Value;
+                txtLocList.Text = xDoc.GetElementsByTagName("list")[0].InnerText;
+                
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
                 suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
 
 
-                if (list == "remote")
+                if (list == "true")
                 {
                     chkStartList.Checked = true;
                 }
@@ -200,6 +216,23 @@ namespace rtmpGUI
         {
             System.Diagnostics.Process.Start("http://apps.ohlulz.com/rtmpgui/users/");
         }
+
+        private void chkStartList_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkStartList.Checked == true)
+            {
+                txtLocList.Enabled = false;
+                button4.Enabled = false;
+            }
+            else
+            {
+                txtLocList.Enabled = true;
+                button4.Enabled = true;
+            }
+
+        }
+
+        
 
     }
 }
