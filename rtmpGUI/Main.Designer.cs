@@ -45,13 +45,13 @@
             this.howToMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.channel_name = new System.Windows.Forms.ColumnHeader();
-            this.swf_url = new System.Windows.Forms.ColumnHeader();
-            this.rtmp_url = new System.Windows.Forms.ColumnHeader();
-            this.http_url = new System.Windows.Forms.ColumnHeader();
-            this.additional_info = new System.Windows.Forms.ColumnHeader();
-            this.channel_language = new System.Windows.Forms.ColumnHeader();
-            this.advanced = new System.Windows.Forms.ColumnHeader();
+            this.channel_name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.swf_url = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.rtmp_url = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.http_url = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.additional_info = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.channel_language = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.advanced = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addChannel = new System.Windows.Forms.ToolStripMenuItem();
             this.editChannel = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,9 +68,13 @@
             this.txtCommands = new System.Windows.Forms.TextBox();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -209,8 +213,9 @@
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.channel_name,
             this.swf_url,
@@ -222,10 +227,10 @@
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.GridLines = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.Location = new System.Drawing.Point(0, 27);
+            this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(191, 296);
+            this.listView1.Size = new System.Drawing.Size(177, 293);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -357,7 +362,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(381, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(514, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // DonateLabel
@@ -373,11 +378,11 @@
             this.wbApp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.wbApp.Location = new System.Drawing.Point(194, 28);
+            this.wbApp.Location = new System.Drawing.Point(-1, 0);
             this.wbApp.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbApp.Name = "wbApp";
             this.wbApp.ScriptErrorsSuppressed = true;
-            this.wbApp.Size = new System.Drawing.Size(380, 295);
+            this.wbApp.Size = new System.Drawing.Size(391, 293);
             this.wbApp.TabIndex = 3;
             this.wbApp.Url = new System.Uri("", System.UriKind.Relative);
             // 
@@ -386,10 +391,10 @@
             this.txtCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCommands.Location = new System.Drawing.Point(194, 28);
+            this.txtCommands.Location = new System.Drawing.Point(-1, 0);
             this.txtCommands.Multiline = true;
             this.txtCommands.Name = "txtCommands";
-            this.txtCommands.Size = new System.Drawing.Size(379, 294);
+            this.txtCommands.Size = new System.Drawing.Size(391, 293);
             this.txtCommands.TabIndex = 4;
             // 
             // saveDialog
@@ -400,16 +405,34 @@
             // 
             this.openDialog.Filter = "XML File (*.xml)|*.xml";
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.listView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.wbApp);
+            this.splitContainer1.Panel2.Controls.Add(this.txtCommands);
+            this.splitContainer1.Size = new System.Drawing.Size(574, 293);
+            this.splitContainer1.SplitterDistance = 180;
+            this.splitContainer1.TabIndex = 5;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(574, 345);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.wbApp);
-            this.Controls.Add(this.txtCommands);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -421,6 +444,10 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -466,6 +493,7 @@
         private System.Windows.Forms.ColumnHeader advanced;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel DonateLabel;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
 

@@ -15,6 +15,7 @@ namespace rtmpGUI
         public AddChannel(Main _main)
         {
             InitializeComponent();
+            this.Font = SystemFonts.MessageBoxFont;
             fmain = _main;
         }
 

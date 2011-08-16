@@ -29,6 +29,7 @@ namespace rtmpGUI
         string altload = string.Empty;
         string homepage = string.Empty;
         string suppress = string.Empty;
+        string default_commands = string.Empty;
 
         string localloadloc = string.Empty;
         string localsaveloc = string.Empty;
@@ -120,7 +121,7 @@ namespace rtmpGUI
         {
             if (howToMenu.Checked == true)
             {
-                wbApp.Navigate("http://apps.ohlulz.com/rtmpplayer/guide.php");
+                wbApp.Navigate("http://apps.ohlulz.com/rtmpgui/guide.php");
             }
             else
             {
@@ -407,6 +408,7 @@ namespace rtmpGUI
                 altload = xDoc.SelectSingleNode("/rtmpGUI/altpage/@load").Value;
                 altpage = xDoc.GetElementsByTagName("altpage")[0].InnerText;
                 suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
+                default_commands = xDoc.GetElementsByTagName("default_commands")[0].InnerText;
 
                 apiUser = xDoc.SelectSingleNode("/rtmpGUI/api/@user").Value;
                 apiKey = xDoc.SelectSingleNode("/rtmpGUI/api/@key").Value;
@@ -451,6 +453,17 @@ namespace rtmpGUI
                 else
                 {
                     supcom = false;
+                }
+
+                if (default_commands == "true")
+                {
+                    txtCommands.BringToFront();
+                    wbApp.SendToBack();
+                }
+                else
+                {
+                    wbApp.BringToFront();
+                    txtCommands.SendToBack();
                 }
 
             }
@@ -510,12 +523,12 @@ namespace rtmpGUI
 
                 if (playpath.Length == 0)
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
                     txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump.exe --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C " + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
                     txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
                 }
 

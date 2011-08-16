@@ -19,6 +19,7 @@ namespace rtmpGUI
         string updates = string.Empty;
         string altload = string.Empty;
         string suppress = string.Empty;
+        string default_commands = string.Empty;
         public Options()
         {
             InitializeComponent();
@@ -26,6 +27,8 @@ namespace rtmpGUI
             tabControl1.ImageList = imageList1;
             tabPage1.ImageIndex = 0;
             tabPage2.ImageIndex = 1;
+
+            this.Font = SystemFonts.MessageBoxFont;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -117,6 +120,17 @@ namespace rtmpGUI
                 }
                 tw.WriteEndElement();
 
+                tw.WriteStartElement("default_commands", "");
+                if (chkCommands.Checked == true)
+                {
+                    tw.WriteString("true");
+                }
+                else
+                {
+                    tw.WriteString("false");
+                }
+                tw.WriteEndElement();
+
                 tw.WriteStartElement("api", "");
                 tw.WriteAttributeString("user", txtAPIuser.Text);
                 tw.WriteAttributeString("key", txtAPIkey.Text);
@@ -146,6 +160,8 @@ namespace rtmpGUI
                 
                 updates = xDoc.GetElementsByTagName("updates")[0].InnerText;
                 suppress = xDoc.GetElementsByTagName("suppress")[0].InnerText;
+
+                default_commands = xDoc.GetElementsByTagName("default_commands")[0].InnerText;
 
 
                 if (list == "true")
@@ -184,6 +200,15 @@ namespace rtmpGUI
                     chkSuppress.Checked = false;
                 }
 
+                if (default_commands == "true")
+                {
+                    chkCommands.Checked = true;
+                }
+                else
+                {
+                    chkCommands.Checked = false;
+                }
+
 
             }
             catch (Exception ex)
@@ -192,6 +217,7 @@ namespace rtmpGUI
                 chkCheckUpdates.Checked = true;
                 chkWebPage.Checked = false;
                 chkSuppress.Checked = true;
+                chkCommands.Checked = false;
             }
         }
 

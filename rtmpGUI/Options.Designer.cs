@@ -57,6 +57,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.findChannels = new System.Windows.Forms.OpenFileDialog();
+            this.chkCommands = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -69,7 +70,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(289, 19);
+            this.button1.Location = new System.Drawing.Point(309, 20);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -86,19 +87,19 @@
             this.txtVLCloc.Enabled = false;
             this.txtVLCloc.Location = new System.Drawing.Point(6, 22);
             this.txtVLCloc.Name = "txtVLCloc";
-            this.txtVLCloc.Size = new System.Drawing.Size(277, 20);
+            this.txtVLCloc.Size = new System.Drawing.Size(297, 20);
             this.txtVLCloc.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtVLCloc);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(8, 161);
+            this.groupBox1.Location = new System.Drawing.Point(8, 173);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(370, 56);
+            this.groupBox1.Size = new System.Drawing.Size(390, 56);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Player Options";
+            this.groupBox1.Text = "Player";
             // 
             // button2
             // 
@@ -122,19 +123,20 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkCommands);
             this.groupBox2.Controls.Add(this.chkSuppress);
             this.groupBox2.Controls.Add(this.chkCheckUpdates);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(372, 68);
+            this.groupBox2.Size = new System.Drawing.Size(392, 80);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Program Options";
+            this.groupBox2.Text = "Program";
             // 
             // chkSuppress
             // 
             this.chkSuppress.AutoSize = true;
-            this.chkSuppress.Location = new System.Drawing.Point(7, 43);
+            this.chkSuppress.Location = new System.Drawing.Point(7, 42);
             this.chkSuppress.Name = "chkSuppress";
             this.chkSuppress.Size = new System.Drawing.Size(138, 17);
             this.chkSuppress.TabIndex = 3;
@@ -146,9 +148,9 @@
             this.chkCheckUpdates.AutoSize = true;
             this.chkCheckUpdates.Location = new System.Drawing.Point(7, 19);
             this.chkCheckUpdates.Name = "chkCheckUpdates";
-            this.chkCheckUpdates.Size = new System.Drawing.Size(169, 17);
+            this.chkCheckUpdates.Size = new System.Drawing.Size(166, 17);
             this.chkCheckUpdates.TabIndex = 2;
-            this.chkCheckUpdates.Text = "Check for updates on startup?";
+            this.chkCheckUpdates.Text = "Check for updates on start up";
             this.chkCheckUpdates.UseVisualStyleBackColor = true;
             // 
             // chkStartList
@@ -156,9 +158,9 @@
             this.chkStartList.AutoSize = true;
             this.chkStartList.Location = new System.Drawing.Point(6, 19);
             this.chkStartList.Name = "chkStartList";
-            this.chkStartList.Size = new System.Drawing.Size(197, 17);
+            this.chkStartList.Size = new System.Drawing.Size(191, 17);
             this.chkStartList.TabIndex = 1;
-            this.chkStartList.Text = "Load remote channel list at start up?";
+            this.chkStartList.Text = "Load remote channel list at start up";
             this.chkStartList.UseVisualStyleBackColor = true;
             this.chkStartList.CheckedChanged += new System.EventHandler(this.chkStartList_CheckedChanged);
             // 
@@ -169,7 +171,7 @@
             this.chkWebPage.Name = "chkWebPage";
             this.chkWebPage.Size = new System.Drawing.Size(144, 17);
             this.chkWebPage.TabIndex = 3;
-            this.chkWebPage.Text = "Load alternate webpage.";
+            this.chkWebPage.Text = "Load alternate web page";
             this.chkWebPage.UseVisualStyleBackColor = true;
             this.chkWebPage.CheckedChanged += new System.EventHandler(this.chkWebPage_CheckedChanged);
             // 
@@ -177,29 +179,29 @@
             // 
             this.groupBox3.Controls.Add(this.chkWebPage);
             this.groupBox3.Controls.Add(this.txtWeb);
-            this.groupBox3.Location = new System.Drawing.Point(6, 152);
+            this.groupBox3.Location = new System.Drawing.Point(6, 164);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(370, 65);
+            this.groupBox3.Size = new System.Drawing.Size(392, 65);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Webpage";
+            this.groupBox3.Text = "Webpage Options";
             // 
             // txtWeb
             // 
             this.txtWeb.Enabled = false;
             this.txtWeb.Location = new System.Drawing.Point(6, 39);
             this.txtWeb.Name = "txtWeb";
-            this.txtWeb.Size = new System.Drawing.Size(358, 20);
+            this.txtWeb.Size = new System.Drawing.Size(380, 20);
             this.txtWeb.TabIndex = 0;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(392, 249);
+            this.tabControl1.Size = new System.Drawing.Size(415, 261);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -210,7 +212,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(384, 223);
+            this.tabPage1.Size = new System.Drawing.Size(407, 235);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Program Options";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -220,16 +222,16 @@
             this.groupBox5.Controls.Add(this.button4);
             this.groupBox5.Controls.Add(this.txtLocList);
             this.groupBox5.Controls.Add(this.chkStartList);
-            this.groupBox5.Location = new System.Drawing.Point(8, 80);
+            this.groupBox5.Location = new System.Drawing.Point(8, 92);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(370, 75);
+            this.groupBox5.Size = new System.Drawing.Size(390, 75);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Channel List Options";
+            this.groupBox5.Text = "Channel List";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(289, 39);
+            this.button4.Location = new System.Drawing.Point(309, 40);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 2;
@@ -241,7 +243,7 @@
             // 
             this.txtLocList.Location = new System.Drawing.Point(6, 42);
             this.txtLocList.Name = "txtLocList";
-            this.txtLocList.Size = new System.Drawing.Size(277, 20);
+            this.txtLocList.Size = new System.Drawing.Size(297, 20);
             this.txtLocList.TabIndex = 0;
             // 
             // tabPage2
@@ -251,7 +253,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 223);
+            this.tabPage2.Size = new System.Drawing.Size(407, 235);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Network Options";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -265,7 +267,7 @@
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(370, 89);
+            this.groupBox4.Size = new System.Drawing.Size(392, 89);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "API Information";
@@ -295,14 +297,14 @@
             // 
             this.txtAPIkey.Location = new System.Drawing.Point(79, 45);
             this.txtAPIkey.Name = "txtAPIkey";
-            this.txtAPIkey.Size = new System.Drawing.Size(284, 20);
+            this.txtAPIkey.Size = new System.Drawing.Size(307, 20);
             this.txtAPIkey.TabIndex = 2;
             // 
             // txtAPIuser
             // 
             this.txtAPIuser.Location = new System.Drawing.Point(79, 19);
             this.txtAPIuser.Name = "txtAPIuser";
-            this.txtAPIuser.Size = new System.Drawing.Size(285, 20);
+            this.txtAPIuser.Size = new System.Drawing.Size(307, 20);
             this.txtAPIuser.TabIndex = 1;
             // 
             // label1
@@ -324,6 +326,16 @@
             // findChannels
             // 
             this.findChannels.FileName = "openFileDialog1";
+            // 
+            // chkCommands
+            // 
+            this.chkCommands.AutoSize = true;
+            this.chkCommands.Location = new System.Drawing.Point(187, 19);
+            this.chkCommands.Name = "chkCommands";
+            this.chkCommands.Size = new System.Drawing.Size(195, 17);
+            this.chkCommands.TabIndex = 4;
+            this.chkCommands.Text = "Load \"Show Commands\" at start up";
+            this.chkCommands.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -384,5 +396,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox txtLocList;
         private System.Windows.Forms.OpenFileDialog findChannels;
+        private System.Windows.Forms.CheckBox chkCommands;
     }
 }

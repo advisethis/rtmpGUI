@@ -21,6 +21,7 @@ C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.EditChannel.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Main.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Options.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Properties.Resources.resources
-C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.csproj.GenerateResource.Cache
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.exe
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.pdb
+C:\Projects\rtmpGUI\rtmpGUI\obj\Release\ResGen.read.1.tlog
+C:\Projects\rtmpGUI\rtmpGUI\obj\Release\ResGen.write.1.tlog

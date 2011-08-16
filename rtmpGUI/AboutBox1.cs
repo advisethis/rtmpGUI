@@ -13,6 +13,7 @@ namespace rtmpGUI
         public AboutBox1()
         {
             InitializeComponent();
+            this.Font = SystemFonts.MessageBoxFont;
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
