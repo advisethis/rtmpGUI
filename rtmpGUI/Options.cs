@@ -20,6 +20,8 @@ namespace rtmpGUI
         string altload = string.Empty;
         string suppress = string.Empty;
         string default_commands = string.Empty;
+
+        private static Options _instance;
         public Options()
         {
             InitializeComponent();
@@ -30,6 +32,17 @@ namespace rtmpGUI
 
             this.Font = SystemFonts.MessageBoxFont;
         }
+
+        public static Options Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new Options();
+            }
+            return _instance;
+
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -256,6 +269,12 @@ namespace rtmpGUI
                 button4.Enabled = true;
             }
 
+        }
+
+        private void Options_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
 
         

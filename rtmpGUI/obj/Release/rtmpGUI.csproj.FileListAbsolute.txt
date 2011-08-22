@@ -25,3 +25,4 @@ C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.exe
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.pdb
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\ResGen.read.1.tlog
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\ResGen.write.1.tlog
+C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.About.resources

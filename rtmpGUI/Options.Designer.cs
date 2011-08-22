@@ -37,6 +37,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkCommands = new System.Windows.Forms.CheckBox();
             this.chkSuppress = new System.Windows.Forms.CheckBox();
             this.chkCheckUpdates = new System.Windows.Forms.CheckBox();
             this.chkStartList = new System.Windows.Forms.CheckBox();
@@ -57,7 +58,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.findChannels = new System.Windows.Forms.OpenFileDialog();
-            this.chkCommands = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -132,6 +132,16 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program";
+            // 
+            // chkCommands
+            // 
+            this.chkCommands.AutoSize = true;
+            this.chkCommands.Location = new System.Drawing.Point(187, 19);
+            this.chkCommands.Name = "chkCommands";
+            this.chkCommands.Size = new System.Drawing.Size(195, 17);
+            this.chkCommands.TabIndex = 4;
+            this.chkCommands.Text = "Load \"Show Commands\" at start up";
+            this.chkCommands.UseVisualStyleBackColor = true;
             // 
             // chkSuppress
             // 
@@ -327,16 +337,6 @@
             // 
             this.findChannels.FileName = "openFileDialog1";
             // 
-            // chkCommands
-            // 
-            this.chkCommands.AutoSize = true;
-            this.chkCommands.Location = new System.Drawing.Point(187, 19);
-            this.chkCommands.Name = "chkCommands";
-            this.chkCommands.Size = new System.Drawing.Size(195, 17);
-            this.chkCommands.TabIndex = 4;
-            this.chkCommands.Text = "Load \"Show Commands\" at start up";
-            this.chkCommands.UseVisualStyleBackColor = true;
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,7 +348,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Options";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Options";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Options_FormClosing);
             this.Load += new System.EventHandler(this.Options_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

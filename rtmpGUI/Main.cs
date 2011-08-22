@@ -47,6 +47,7 @@ namespace rtmpGUI
         {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
+            wbApp.IsWebBrowserContextMenuEnabled = false;
         }
         #region form_stuff
         private void Form1_Load(object sender, EventArgs e)
@@ -62,9 +63,14 @@ namespace rtmpGUI
         #region file_menu
         private void optionsMenu_Click(object sender, EventArgs e)
         {
-            using (Form Options = new Options())
+            Options form = Options.Instance();
+            if (!form.Visible)
             {
-                Options.ShowDialog(this);
+                form.Show();
+            }
+            else
+            {
+                form.BringToFront();
             }
         }
 
@@ -133,9 +139,9 @@ namespace rtmpGUI
 
         private void aboutMenu_Click(object sender, EventArgs e)
         {
-            using (Form AboutBox1 = new AboutBox1())
+            using (Form About = new About())
             {
-                AboutBox1.ShowDialog();
+                About.ShowDialog();
             }
         }
         #endregion
