@@ -57,7 +57,7 @@ namespace rtmpGUI
 
         private void DonateLabel_Click(object sender, EventArgs e)
         {
-            Process.Start("http://ohlulz.com/donate.php");
+            
         }
 
         #region file_menu
@@ -143,6 +143,11 @@ namespace rtmpGUI
             {
                 About.ShowDialog();
             }
+        }
+
+        private void donateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://ohlulz.com/donate.php");
         }
         #endregion
 
@@ -243,6 +248,8 @@ namespace rtmpGUI
                 RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
                 sysLabel.Text = "Loading : " + lvi.SubItems[0].Text;
             }
+            timer1.Enabled = true;
+            timer1.Start();
         }
         #endregion
 
@@ -253,6 +260,21 @@ namespace rtmpGUI
             wbApp.Navigate(wbApp.StatusText);
             e.Cancel = true;
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int i = 0;
+            while (i <= 5)
+            {
+                if (i == 5)
+                {
+                    sysLabel.Text = "";
+                    timer1.Stop();
+                    timer1.Enabled = false;
+                }
+                i++;
+            }
         }
         #endregion
 
@@ -271,6 +293,7 @@ namespace rtmpGUI
                 try
                 {
                     xDoc.Load("http://apps.ohlulz.com/rtmpgui/list.xml");
+                    this.Text = "rtmpGUI : Remote Channel List";
                     //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
@@ -310,6 +333,7 @@ namespace rtmpGUI
                     if (openDialog.ShowDialog() == DialogResult.OK)
                     {
                         localloadloc = openDialog.FileName.ToString();
+                        this.Text = "rtmpGUI : " + localloadloc;
                     }
                 }
                 XmlDocument xDoc = new XmlDocument();
@@ -740,5 +764,6 @@ namespace rtmpGUI
 
 
         #endregion
+
     }
 }
