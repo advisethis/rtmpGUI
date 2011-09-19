@@ -75,7 +75,7 @@ namespace rtmpGUI
 
         public void SaveSettings()
         {
-            using (var tw = new XmlTextWriter(Application.StartupPath.ToString() + "\\config.xml", null)) // By using the using statement (not directive!) we remove the need of tw.Close() afterwards.
+            using (var tw = new XmlTextWriter(Application.StartupPath.ToString() + "\\config.xml", null))
             {
                 tw.Formatting = Formatting.Indented;
                 tw.WriteStartDocument();

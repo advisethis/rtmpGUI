@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -157,8 +158,6 @@
     <None Include="Resources\delete.png" />
     <None Include="Resources\edit.png" />
     <None Include="Resources\new.png" />
-    <None Include="Resources\rtmpgui1.png" />
-    <None Include="Resources\rtmpgui.png" />
     <None Include="Resources\page.png" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\drive.png" />

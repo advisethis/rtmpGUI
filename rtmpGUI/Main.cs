@@ -53,11 +53,13 @@ namespace rtmpGUI
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadSettings();
+
+            LoadAppSettings();
         }
 
-        private void DonateLabel_Click(object sender, EventArgs e)
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+            SaveAppSettings();
         }
 
         #region file_menu
@@ -223,8 +225,6 @@ namespace rtmpGUI
                     var safelang = HttpUtility.UrlEncode(lvi.SubItems[5].Text);
                     var safeadvanced = HttpUtility.UrlEncode(lvi.SubItems[6].Text);
                     sysLabel.Text = connection("http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
-                    //txtCommands.Text = "http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey;
-                    //sysLabel.Text = connection("http://127.0.0.1/rtmpplayer/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
                 }
             }
             catch (Exception ex)
@@ -294,7 +294,6 @@ namespace rtmpGUI
                 {
                     xDoc.Load("http://apps.ohlulz.com/rtmpgui/list.xml");
                     this.Text = "rtmpGUI : Remote Channel List";
-                    //xDoc.Load("http://127.0.0.1/rtmpplayer/list.xml");
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
 
@@ -602,7 +601,7 @@ namespace rtmpGUI
         {
             try
             {
-                using (var tw = new XmlTextWriter(file, null)) // By using the using statement (not directive!) we remove the need of tw.Close() afterwards.
+                using (var tw = new XmlTextWriter(file, null))
                 {
                     tw.Formatting = Formatting.Indented;
                     tw.WriteStartDocument();
@@ -611,7 +610,6 @@ namespace rtmpGUI
 
                     for (int i = 0; i < list.Items.Count; i++)
                     {
-                        // Start a new element.
                         tw.WriteStartElement("stream", string.Empty);
 
                         tw.WriteStartElement("title", string.Empty);
@@ -642,12 +640,9 @@ namespace rtmpGUI
                         tw.WriteString(list.Items[i].SubItems[6].Text);
                         tw.WriteEndElement();
 
-                        // And close it off.
                         tw.WriteEndElement();
                     }
 
-                    // I'd relocate these statements out of the foreach loop, seeing we already close each element
-                    // properly, and we don't want to close the entire file off until after we've written all elements, right?
                     tw.WriteEndElement();
                     tw.WriteEndDocument();
                 }
@@ -762,8 +757,54 @@ namespace rtmpGUI
 
         }
 
+        public void SaveAppSettings()
+        {
+            using (var tw = new XmlTextWriter(Application.StartupPath.ToString() + "\\app.config", null))
+            {
+                tw.Formatting = Formatting.Indented;
+                tw.WriteStartDocument();
+                tw.WriteStartElement("rtmpGUI", string.Empty);
 
+                tw.WriteStartElement("WindowSize", "");
+                tw.WriteAttributeString("Height", this.Size.Height.ToString());
+                tw.WriteAttributeString("Width", this.Size.Width.ToString());
+                tw.WriteEndElement();
+
+                tw.WriteStartElement("WindowLocation", "");
+                tw.WriteAttributeString("X", this.Location.X.ToString());
+                tw.WriteAttributeString("Y", this.Location.Y.ToString());
+                tw.WriteEndElement();
+            }
+        }
+
+        private void LoadAppSettings()
+        {
+            XmlDocument xDoc = new XmlDocument();
+            try
+            {
+                int LocationX;
+                int LocationY;
+                xDoc.Load(Application.StartupPath.ToString() + "\\app.config");
+
+                this.Height = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowSize/@Height").Value);
+                this.Width = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowSize/@Width").Value);
+
+                LocationX = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowLocation/@X").Value);
+                LocationY = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowLocation/@Y").Value);
+
+                this.Location = new Point(LocationX, LocationY);
+            }
+            catch (Exception ex)
+            {
+                this.Height = 383;
+                this.Width = 590;
+
+                this.Location = new Point(0, 0);
+            }
+        }
         #endregion
+
+        
 
     }
 }

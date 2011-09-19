@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddChannel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtAdvanced = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,8 +46,6 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.txtAdvanced = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +71,22 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Channel Info";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 176);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Advanced :";
+            // 
+            // txtAdvanced
+            // 
+            this.txtAdvanced.Location = new System.Drawing.Point(95, 173);
+            this.txtAdvanced.Name = "txtAdvanced";
+            this.txtAdvanced.Size = new System.Drawing.Size(279, 20);
+            this.txtAdvanced.TabIndex = 6;
             // 
             // label6
             // 
@@ -188,22 +204,6 @@
             this.button2.Text = "Okay";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // txtAdvanced
-            // 
-            this.txtAdvanced.Location = new System.Drawing.Point(95, 173);
-            this.txtAdvanced.Name = "txtAdvanced";
-            this.txtAdvanced.Size = new System.Drawing.Size(279, 20);
-            this.txtAdvanced.TabIndex = 6;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 176);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(62, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Advanced :";
             // 
             // AddChannel
             // 
