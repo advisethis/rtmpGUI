@@ -43,11 +43,17 @@ namespace rtmpGUI
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
 
+
+        private ListViewColumnSorter lvwColumnSorter;
+
         public Main()
         {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
             wbApp.IsWebBrowserContextMenuEnabled = false;
+
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.listView1.ListViewItemSorter = lvwColumnSorter;
         }
         #region form_stuff
         private void Form1_Load(object sender, EventArgs e)
@@ -240,6 +246,42 @@ namespace rtmpGUI
         {
         }
 
+        private void listView1_Click(object sender, EventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                fontDialog.Font = SystemFonts.MessageBoxFont;
+                fontDialog.ShowDialog();
+                listView1.Font = fontDialog.Font;
+            }
+        }
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.listView1.Sort();
+        }
+
         private void listView1_DoubleClick(object sender, System.EventArgs e)
         {
             RefreshSettings();
@@ -332,7 +374,6 @@ namespace rtmpGUI
                     if (openDialog.ShowDialog() == DialogResult.OK)
                     {
                         localloadloc = openDialog.FileName.ToString();
-                        this.Text = "rtmpGUI : " + localloadloc;
                     }
                 }
                 XmlDocument xDoc = new XmlDocument();
@@ -340,6 +381,8 @@ namespace rtmpGUI
                 try
                 {
                     xDoc.Load(localloadloc);
+                    this.Text = "rtmpGUI : " + localloadloc;
+                    
                     int c = xDoc.GetElementsByTagName("stream").Count;
                     int i = 0;
 
@@ -352,7 +395,7 @@ namespace rtmpGUI
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("playpath")[i].InnerText);
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("language")[i].InnerText);
                         lvi.SubItems.Add(xDoc.GetElementsByTagName("advanced")[i].InnerText);
-                        
+
                         i++;
                     }
                 }
@@ -805,6 +848,10 @@ namespace rtmpGUI
         #endregion
 
         
+
+
+
+
 
     }
 }
