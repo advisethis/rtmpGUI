@@ -32,6 +32,10 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtResolution = new System.Windows.Forms.TextBox();
+            this.txtBitrate = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtAdvanced = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,7 +55,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(236, 222);
+            this.button3.Location = new System.Drawing.Point(236, 247);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 8;
@@ -61,7 +65,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(317, 222);
+            this.button2.Location = new System.Drawing.Point(317, 247);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -71,6 +75,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.txtResolution);
+            this.groupBox1.Controls.Add(this.txtBitrate);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtAdvanced);
             this.groupBox1.Controls.Add(this.label6);
@@ -87,10 +95,42 @@
             this.groupBox1.Controls.Add(this.txtTitle);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 204);
+            this.groupBox1.Size = new System.Drawing.Size(380, 229);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Channel Info";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(224, 203);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Bitrate :";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(26, 203);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Resolution :";
+            // 
+            // txtResolution
+            // 
+            this.txtResolution.Location = new System.Drawing.Point(96, 200);
+            this.txtResolution.Name = "txtResolution";
+            this.txtResolution.Size = new System.Drawing.Size(100, 20);
+            this.txtResolution.TabIndex = 25;
+            // 
+            // txtBitrate
+            // 
+            this.txtBitrate.Location = new System.Drawing.Point(273, 200);
+            this.txtBitrate.Name = "txtBitrate";
+            this.txtBitrate.Size = new System.Drawing.Size(100, 20);
+            this.txtBitrate.TabIndex = 24;
             // 
             // label7
             // 
@@ -105,7 +145,7 @@
             // 
             this.txtAdvanced.Location = new System.Drawing.Point(96, 174);
             this.txtAdvanced.Name = "txtAdvanced";
-            this.txtAdvanced.Size = new System.Drawing.Size(276, 20);
+            this.txtAdvanced.Size = new System.Drawing.Size(278, 20);
             this.txtAdvanced.TabIndex = 6;
             // 
             // label6
@@ -208,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 257);
+            this.ClientSize = new System.Drawing.Size(404, 282);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
@@ -241,5 +281,9 @@
         public System.Windows.Forms.TextBox txtLanguage;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.TextBox txtAdvanced;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox txtResolution;
+        public System.Windows.Forms.TextBox txtBitrate;
     }
 }

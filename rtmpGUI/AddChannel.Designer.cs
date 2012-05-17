@@ -44,13 +44,21 @@
             this.txtswfUrl = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOkay = new System.Windows.Forms.Button();
+            this.txtBitrate = new System.Windows.Forms.TextBox();
+            this.txtResolution = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.txtResolution);
+            this.groupBox1.Controls.Add(this.txtBitrate);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtAdvanced);
             this.groupBox1.Controls.Add(this.label6);
@@ -67,7 +75,7 @@
             this.groupBox1.Controls.Add(this.txtTitle);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 204);
+            this.groupBox1.Size = new System.Drawing.Size(380, 229);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Channel Info";
@@ -185,33 +193,65 @@
             this.txtTitle.TabIndex = 0;
             this.txtTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTitle_KeyDown);
             // 
-            // button3
+            // btnCancel
             // 
-            this.button3.Location = new System.Drawing.Point(236, 222);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnCancel.Location = new System.Drawing.Point(236, 247);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // button2
+            // btnOkay
             // 
-            this.button2.Location = new System.Drawing.Point(317, 222);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Okay";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnOkay.Location = new System.Drawing.Point(317, 247);
+            this.btnOkay.Name = "btnOkay";
+            this.btnOkay.Size = new System.Drawing.Size(75, 23);
+            this.btnOkay.TabIndex = 7;
+            this.btnOkay.Text = "Okay";
+            this.btnOkay.UseVisualStyleBackColor = true;
+            this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
+            // 
+            // txtBitrate
+            // 
+            this.txtBitrate.Location = new System.Drawing.Point(274, 199);
+            this.txtBitrate.Name = "txtBitrate";
+            this.txtBitrate.Size = new System.Drawing.Size(100, 20);
+            this.txtBitrate.TabIndex = 14;
+            // 
+            // txtResolution
+            // 
+            this.txtResolution.Location = new System.Drawing.Point(95, 199);
+            this.txtResolution.Name = "txtResolution";
+            this.txtResolution.Size = new System.Drawing.Size(100, 20);
+            this.txtResolution.TabIndex = 15;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(26, 202);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Resolution :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(225, 202);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Bitrate :";
             // 
             // AddChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 257);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(404, 282);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOkay);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -226,8 +266,8 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOkay;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label2;
@@ -242,5 +282,9 @@
         private System.Windows.Forms.TextBox txtLanguage;
         private System.Windows.Forms.TextBox txtAdvanced;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtResolution;
+        private System.Windows.Forms.TextBox txtBitrate;
+        private System.Windows.Forms.Label label9;
     }
 }

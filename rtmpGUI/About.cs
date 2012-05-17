@@ -22,7 +22,6 @@ namespace rtmpGUI
             this.labelCompanyName.Text = AssemblyCompany;
         }
 
-
         #region Assembly Attribute Accessors
 
         public string AssemblyTitle
@@ -101,7 +100,8 @@ namespace rtmpGUI
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
+
+        #endregion Assembly Attribute Accessors
 
         private void okButton_Click(object sender, EventArgs e)
         {

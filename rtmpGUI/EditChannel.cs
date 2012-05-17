@@ -12,6 +12,7 @@ namespace rtmpGUI
     public partial class EditChannel : Form
     {
         Main fmain;
+
         public EditChannel(Main _main)
         {
             InitializeComponent();
@@ -26,10 +27,9 @@ namespace rtmpGUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string[] array = new string[7] { txtTitle.Text, txtswfUrl.Text, txtLink.Text, txtPageUrl.Text, txtPlaypath.Text, txtLanguage.Text, txtAdvanced.Text };
+            string[] array = new string[9] { txtTitle.Text, txtswfUrl.Text, txtLink.Text, txtPageUrl.Text, txtPlaypath.Text, txtLanguage.Text, txtAdvanced.Text, txtResolution.Text, txtBitrate.Text };
             fmain.EditChanel(array);
             this.Hide();
         }
-
     }
 }

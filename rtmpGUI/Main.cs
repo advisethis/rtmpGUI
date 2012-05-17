@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Reflection;
-using System.Windows.Forms;
-using System.Net;
-using System.Xml;
-using System.IO;
-using System.Web;
-using Microsoft.Win32;
 using System.Threading;
-
+using System.Web;
+using System.Windows.Forms;
+using System.Xml;
+using Microsoft.Win32;
 
 namespace rtmpGUI
 {
@@ -43,7 +42,6 @@ namespace rtmpGUI
         private delegate void AddItemCallback(object o);
         delegate void MyDelegate(string[] array);
 
-
         private ListViewColumnSorter lvwColumnSorter;
 
         public Main()
@@ -55,7 +53,9 @@ namespace rtmpGUI
             lvwColumnSorter = new ListViewColumnSorter();
             this.listView1.ListViewItemSorter = lvwColumnSorter;
         }
+
         #region form_stuff
+
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadSettings();
@@ -69,6 +69,7 @@ namespace rtmpGUI
         }
 
         #region file_menu
+
         private void optionsMenu_Click(object sender, EventArgs e)
         {
             Options form = Options.Instance();
@@ -85,18 +86,19 @@ namespace rtmpGUI
         private void remoteXmlLoad_Click(object sender, EventArgs e)
         {
             ThreadStart update = new ThreadStart(RemoteXML);
-            Thread check = new Thread(update);
-            check.Priority = ThreadPriority.Normal;
-            check.Start();
+            Thread remoteThread = new Thread(update);
+            remoteThread.Priority = ThreadPriority.Normal;
+            remoteThread.IsBackground = true;
+            remoteThread.Start();
         }
 
         private void LocalXMLLoad_Click(object sender, EventArgs e)
         {
-
-            ThreadStart update = new ThreadStart(LocalXML);
-            Thread check = new Thread(update);
-            check.Priority = ThreadPriority.Normal;
-            check.Start();
+            ThreadStart update = new ThreadStart(LocalXml);
+            Thread localThread = new Thread(update);
+            localThread.Priority = ThreadPriority.Normal;
+            localThread.IsBackground = true;
+            localThread.Start();
         }
 
         private void webpageRefresh_Click(object sender, EventArgs e)
@@ -127,10 +129,11 @@ namespace rtmpGUI
         {
             Application.Exit();
         }
-        #endregion
 
+        #endregion file_menu
 
         #region help_menu
+
         private void howToMenu_Click(object sender, EventArgs e)
         {
             if (howToMenu.Checked == true)
@@ -141,8 +144,6 @@ namespace rtmpGUI
             {
                 wbApp.Navigate(homepage);
             }
-
-
         }
 
         private void aboutMenu_Click(object sender, EventArgs e)
@@ -157,10 +158,11 @@ namespace rtmpGUI
         {
             Process.Start("http://ohlulz.com/donate.php");
         }
-        #endregion
 
+        #endregion help_menu
 
         #region context_menu
+
         private void addChannel_Click(object sender, EventArgs e)
         {
             using (Form Channel = new AddChannel(this))
@@ -175,12 +177,10 @@ namespace rtmpGUI
             {
                 RecordStream(lvi.SubItems[0].Text, lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
             }
-
         }
 
         private void editChannel_Click(object sender, EventArgs e)
         {
-
             using (EditChannel ec = new EditChannel(this))
             {
                 foreach (ListViewItem lvi in listView1.SelectedItems)
@@ -192,6 +192,8 @@ namespace rtmpGUI
                     ec.txtPlaypath.Text = lvi.SubItems[4].Text;
                     ec.txtLanguage.Text = lvi.SubItems[5].Text;
                     ec.txtAdvanced.Text = lvi.SubItems[6].Text;
+                    ec.txtResolution.Text = lvi.SubItems[7].Text;
+                    ec.txtBitrate.Text = lvi.SubItems[8].Text;
                 }
 
                 ec.ShowDialog(this);
@@ -208,14 +210,12 @@ namespace rtmpGUI
 
         private void saveChannels_Click(object sender, EventArgs e)
         {
-
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 localsaveloc = saveDialog.FileName.ToString();
                 SaveList(listView1, localsaveloc);
             }
         }
-
 
         private void submitChannel_Click(object sender, EventArgs e)
         {
@@ -230,7 +230,9 @@ namespace rtmpGUI
                     var safeplay = HttpUtility.UrlEncode(lvi.SubItems[4].Text);
                     var safelang = HttpUtility.UrlEncode(lvi.SubItems[5].Text);
                     var safeadvanced = HttpUtility.UrlEncode(lvi.SubItems[6].Text);
-                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
+                    var saferesolution = HttpUtility.UrlEncode(lvi.SubItems[7].Text);
+                    var safebitrate = HttpUtility.UrlEncode(lvi.SubItems[8].Text);
+                    sysLabel.Text = connection("http://apps.ohlulz.com/rtmpgui/api.php?title=" + safetitle + "&swfUrl=" + safeswf + "&link=" + safertmp + "&pageUrl=" + safepage + "&playpath=" + safeplay + "&lang=" + safelang + "&advanced=" + safeadvanced + "&resolution=" + saferesolution + "&bitrate=" + safebitrate + "&apiUser=" + apiUser + "&apiKey=" + apiKey);
                 }
             }
             catch (Exception ex)
@@ -239,9 +241,11 @@ namespace rtmpGUI
                 DebugLog(ex.ToString());
             }
         }
-        #endregion
+
+        #endregion context_menu
 
         #region listview
+
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -287,21 +291,34 @@ namespace rtmpGUI
             RefreshSettings();
             foreach (ListViewItem lvi in listView1.SelectedItems)
             {
-                RunStream(lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
+                RunStream(lvi.SubItems[0].Text, lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
                 sysLabel.Text = "Loading : " + lvi.SubItems[0].Text;
             }
             timer1.Enabled = true;
             timer1.Start();
         }
-        #endregion
 
+        private void listView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                RefreshSettings();
+                foreach (ListViewItem lvi in listView1.SelectedItems)
+                {
+                    RunStream(lvi.SubItems[0].Text, lvi.SubItems[1].Text, lvi.SubItems[2].Text, lvi.SubItems[3].Text, lvi.SubItems[4].Text, lvi.SubItems[6].Text);
+                    sysLabel.Text = "Loading : " + lvi.SubItems[0].Text;
+                }
+                timer1.Enabled = true;
+                timer1.Start();
+            }
+        }
+
+        #endregion listview
 
         private void wbApp_NewWindow(object sender, CancelEventArgs e)
         {
-
             wbApp.Navigate(wbApp.StatusText);
             e.Cancel = true;
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -318,12 +335,13 @@ namespace rtmpGUI
                 i++;
             }
         }
-        #endregion
+
+        #endregion form_stuff
 
         #region functions
+
         private void RemoteXML()
         {
-
             if (listView1.InvokeRequired)
             {
                 listView1.BeginInvoke(new MethodInvoker(() => RemoteXML()));
@@ -334,38 +352,40 @@ namespace rtmpGUI
                 listView1.Items.Clear();
                 try
                 {
-                    xDoc.Load("http://apps.ohlulz.com/rtmpgui/list.xml");
+                    xDoc.LoadXml(connection("http://apps.ohlulz.com/rtmpgui/list.xml"));
+                    //xDoc.LoadXml(connection("http://127.0.0.1/www/rtmpgui/list.php"));
                     this.Text = "rtmpGUI : Remote Channel List";
-                    int c = xDoc.GetElementsByTagName("stream").Count;
-                    int i = 0;
 
-                    while (i < c)
+                    XmlNodeList nodes = xDoc.SelectNodes("/streams/stream");
+                    int nc = nodes.Count;
+                    tsslRight.Text = nc.ToString() + " streams loaded";
+                    foreach (XmlNode xn in nodes)
                     {
-                        ListViewItem lvi = listView1.Items.Add(xDoc.GetElementsByTagName("title")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("swfUrl")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("link")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("pageUrl")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("playpath")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("language")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("advanced")[i].InnerText);
-                        i++;
+                        ListViewItem lvi = listView1.Items.Add(xn["title"].InnerText);
+                        lvi.SubItems.Add(xn["swfUrl"].InnerText);
+                        lvi.SubItems.Add(xn["link"].InnerText);
+                        lvi.SubItems.Add(xn["pageUrl"].InnerText);
+                        lvi.SubItems.Add(xn["playpath"].InnerText);
+                        lvi.SubItems.Add(xn["language"].InnerText);
+                        lvi.SubItems.Add(xn["advanced"].InnerText);
+                        //lvi.SubItems.Add(xn["info"].Attributes["resolution"].Value);
+                        //lvi.SubItems.Add(xn["info"].Attributes["bitrate"].Value);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occured while trying to load the remote channel list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(ex.ToString());
+                    MessageBox.Show("An error occurred while trying to load the remote channel list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DebugLog(ex.ToString());
                 }
-
             }
         }
 
-        private void LocalXML()
+        private void LocalXml()
         {
-
             if (listView1.InvokeRequired)
             {
-                listView1.BeginInvoke(new MethodInvoker(() => LocalXML()));
+                listView1.BeginInvoke(new MethodInvoker(() => LocalXml()));
             }
             else
             {
@@ -382,29 +402,28 @@ namespace rtmpGUI
                 {
                     xDoc.Load(localloadloc);
                     this.Text = "rtmpGUI : " + localloadloc;
-                    
-                    int c = xDoc.GetElementsByTagName("stream").Count;
-                    int i = 0;
 
-                    while (i < c)
+                    XmlNodeList nodes = xDoc.SelectNodes("/streams/stream");
+                    int nc = nodes.Count;
+                    tsslRight.Text = nc.ToString() + " streams loaded";
+                    foreach (XmlNode xn in nodes)
                     {
-                        ListViewItem lvi = listView1.Items.Add(xDoc.GetElementsByTagName("title")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("swfUrl")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("link")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("pageUrl")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("playpath")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("language")[i].InnerText);
-                        lvi.SubItems.Add(xDoc.GetElementsByTagName("advanced")[i].InnerText);
-
-                        i++;
+                        ListViewItem lvi = listView1.Items.Add(xn["title"].InnerText);
+                        lvi.SubItems.Add(xn["swfUrl"].InnerText);
+                        lvi.SubItems.Add(xn["link"].InnerText);
+                        lvi.SubItems.Add(xn["pageUrl"].InnerText);
+                        lvi.SubItems.Add(xn["playpath"].InnerText);
+                        lvi.SubItems.Add(xn["language"].InnerText);
+                        lvi.SubItems.Add(xn["advanced"].InnerText);
+                        //lvi.SubItems.Add(xn["info"].Attributes["resolution"].Value);
+                        //lvi.SubItems.Add(xn["info"].Attributes["bitrate"].Value);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occured while trying to load the local channel list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("An error occurred while trying to load " + localloadloc, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DebugLog(ex.ToString());
                 }
-
             }
         }
 
@@ -423,6 +442,8 @@ namespace rtmpGUI
                 lvi.SubItems.Add(array[4]);
                 lvi.SubItems.Add(array[5]);
                 lvi.SubItems.Add(array[6]);
+                lvi.SubItems.Add(array[7]);
+                lvi.SubItems.Add(array[8]);
                 this.listView1.Items.Add(lvi);
             }
 
@@ -434,7 +455,6 @@ namespace rtmpGUI
             {
                 SaveList(listView1, localsaveloc);
             }
-
         }
 
         public void EditChanel(string[] array)
@@ -445,7 +465,6 @@ namespace rtmpGUI
             }
             else
             {
-
                 foreach (ListViewItem lvi in listView1.SelectedItems)
                 {
                     lvi.SubItems[0].Text = array[0];
@@ -455,6 +474,8 @@ namespace rtmpGUI
                     lvi.SubItems[4].Text = array[4];
                     lvi.SubItems[5].Text = array[5];
                     lvi.SubItems[6].Text = array[6];
+                    lvi.SubItems[7].Text = array[7];
+                    lvi.SubItems[8].Text = array[8];
                 }
             }
             if (localsaveloc == string.Empty)
@@ -494,7 +515,7 @@ namespace rtmpGUI
                 else
                 {
                     localloadloc = xDoc.GetElementsByTagName("list")[0].InnerText;
-                    ThreadStart update = new ThreadStart(LocalXML);
+                    ThreadStart update = new ThreadStart(LocalXml);
                     Thread check = new Thread(update);
                     check.Start();
                 }
@@ -537,7 +558,6 @@ namespace rtmpGUI
                     wbApp.BringToFront();
                     txtCommands.SendToBack();
                 }
-
             }
             catch (Exception ex)
             {
@@ -568,7 +588,6 @@ namespace rtmpGUI
                 {
                     supcom = false;
                 }
-
             }
             catch (Exception ex)
             {
@@ -576,10 +595,9 @@ namespace rtmpGUI
                 MessageBox.Show("There was an error with the config file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 DebugLog(ex.ToString());
             }
-
         }
 
-        private void RunStream(string swfUrl, string link, string pageUrl, string playpath, string advanced)
+        private void RunStream(string title, string swfUrl, string link, string pageUrl, string playpath, string advanced)
         {
             try
             {
@@ -592,23 +610,22 @@ namespace rtmpGUI
                     pr.StartInfo.UseShellExecute = false;
                 }
 
-
                 if (playpath.Length == 0)
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C " + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
                 }
 
                 pr.Start();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured while trying to play the channel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while trying to play the channel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DebugLog(ex.ToString());
             }
         }
@@ -635,7 +652,7 @@ namespace rtmpGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured while trying to record the channel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while trying to record the channel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DebugLog(ex.ToString());
             }
         }
@@ -650,13 +667,17 @@ namespace rtmpGUI
                     tw.WriteStartDocument();
                     tw.WriteStartElement("streams");
 
-
                     for (int i = 0; i < list.Items.Count; i++)
                     {
                         tw.WriteStartElement("stream", string.Empty);
 
                         tw.WriteStartElement("title", string.Empty);
                         tw.WriteString(list.Items[i].SubItems[0].Text);
+                        tw.WriteEndElement();
+
+                        tw.WriteStartElement("info", string.Empty);
+                        tw.WriteAttributeString("resolution", list.Items[i].SubItems[7].Text);
+                        tw.WriteAttributeString("bitrate", list.Items[i].SubItems[8].Text);
                         tw.WriteEndElement();
 
                         tw.WriteStartElement("swfUrl", string.Empty);
@@ -696,7 +717,6 @@ namespace rtmpGUI
             }
         }
 
-
         public string connection(string url)
         {
             webconnect = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -715,8 +735,6 @@ namespace rtmpGUI
             return PageContent;
         }
 
-
-
         public void CheckUpdates()
         {
             try
@@ -727,8 +745,9 @@ namespace rtmpGUI
 
                 if (Assembly.GetExecutingAssembly().GetName().Version >= downloadedVersion)
                 {
-
                     sysLabel.Text = "Update Status : There are no updates at this time.";
+                    timer1.Enabled = true;
+                    timer1.Start();
                 }
                 else
                 {
@@ -761,7 +780,6 @@ namespace rtmpGUI
                 System.Diagnostics.Process.Start("http://ohlulz.com/download.php?f=rtmpGUI.exe");
                 Environment.Exit(0);
             }
-
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -797,7 +815,6 @@ namespace rtmpGUI
 
             // Close the stream:
             log.Close();
-
         }
 
         public void SaveAppSettings()
@@ -817,6 +834,13 @@ namespace rtmpGUI
                 tw.WriteAttributeString("X", this.Location.X.ToString());
                 tw.WriteAttributeString("Y", this.Location.Y.ToString());
                 tw.WriteEndElement();
+
+                tw.WriteStartElement("PanelWidth", "");
+                tw.WriteString(splitContainer1.SplitterDistance.ToString());
+                tw.WriteEndElement();
+
+                tw.WriteEndElement();
+                tw.WriteEndDocument();
             }
         }
 
@@ -827,6 +851,7 @@ namespace rtmpGUI
             {
                 int LocationX;
                 int LocationY;
+                string PanelWidth;
                 xDoc.Load(Application.StartupPath.ToString() + "\\app.config");
 
                 this.Height = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowSize/@Height").Value);
@@ -835,7 +860,10 @@ namespace rtmpGUI
                 LocationX = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowLocation/@X").Value);
                 LocationY = int.Parse(xDoc.SelectSingleNode("/rtmpGUI/WindowLocation/@Y").Value);
 
+                PanelWidth = xDoc.GetElementsByTagName("PanelWidth")[0].InnerText;
+
                 this.Location = new Point(LocationX, LocationY);
+                splitContainer1.SplitterDistance = int.Parse(PanelWidth);
             }
             catch (Exception ex)
             {
@@ -843,15 +871,10 @@ namespace rtmpGUI
                 this.Width = 590;
 
                 this.Location = new Point(0, 0);
+                splitContainer1.SplitterDistance = 180;
             }
         }
-        #endregion
 
-        
-
-
-
-
-
+        #endregion functions
     }
 }

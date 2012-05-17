@@ -14,13 +14,12 @@ C:\Users\Mike\Documents\Visual Studio 2008\Projects\rtmpGUI\rtmpGUI\obj\Release\
 \\BIGBLACKBOX\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.pdb
 C:\Projects\rtmpGUI\rtmpGUI\bin\Release\rtmpGUI.exe
 C:\Projects\rtmpGUI\rtmpGUI\bin\Release\rtmpGUI.pdb
-C:\Projects\rtmpGUI\rtmpGUI\obj\Release\ResolveAssemblyReference.cache
+C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.About.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.AddChannel.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.EditChannel.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Main.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Options.resources
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.Properties.Resources.resources
+C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.csproj.GenerateResource.Cache
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.exe
 C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.pdb
-C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.About.resources
-C:\Projects\rtmpGUI\rtmpGUI\obj\Release\rtmpGUI.csproj.GenerateResource.Cache
