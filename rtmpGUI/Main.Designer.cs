@@ -243,7 +243,7 @@
             this.bitrate});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Location = new System.Drawing.Point(3, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(177, 293);
@@ -263,29 +263,29 @@
             // 
             // swf_url
             // 
-            this.swf_url.DisplayIndex = 4;
+            this.swf_url.DisplayIndex = 3;
             this.swf_url.Text = "SWF URL";
             this.swf_url.Width = 80;
             // 
             // rtmp_url
             // 
-            this.rtmp_url.DisplayIndex = 5;
+            this.rtmp_url.DisplayIndex = 4;
             this.rtmp_url.Text = "Link";
             this.rtmp_url.Width = 80;
             // 
             // http_url
             // 
-            this.http_url.DisplayIndex = 6;
+            this.http_url.DisplayIndex = 5;
             this.http_url.Text = "Page URL";
             // 
             // additional_info
             // 
-            this.additional_info.DisplayIndex = 7;
+            this.additional_info.DisplayIndex = 6;
             this.additional_info.Text = "Playpath";
             // 
             // channel_language
             // 
-            this.channel_language.DisplayIndex = 1;
+            this.channel_language.DisplayIndex = 7;
             this.channel_language.Text = "Language";
             this.channel_language.Width = 77;
             // 
@@ -296,12 +296,13 @@
             // 
             // resolution
             // 
-            this.resolution.DisplayIndex = 2;
+            this.resolution.DisplayIndex = 1;
             this.resolution.Text = "Resolution";
+            this.resolution.Width = 75;
             // 
             // bitrate
             // 
-            this.bitrate.DisplayIndex = 3;
+            this.bitrate.DisplayIndex = 2;
             this.bitrate.Text = "Bitrate";
             // 
             // contextMenuStrip1
@@ -318,7 +319,7 @@
             // 
             // addChannel
             // 
-            this.addChannel.Image = global::rtmpGUI.Properties.Resources._new;
+            this.addChannel.Image = global::rtmpGUI.Properties.Resources.new_icon;
             this.addChannel.Name = "addChannel";
             this.addChannel.Size = new System.Drawing.Size(159, 22);
             this.addChannel.Text = "Add Channel";
@@ -326,7 +327,7 @@
             // 
             // editChannel
             // 
-            this.editChannel.Image = global::rtmpGUI.Properties.Resources.blue_document__pencil;
+            this.editChannel.Image = global::rtmpGUI.Properties.Resources.blue_pencil;
             this.editChannel.Name = "editChannel";
             this.editChannel.Size = new System.Drawing.Size(159, 22);
             this.editChannel.Text = "Edit Channel";
@@ -358,7 +359,7 @@
             // 
             // submitChannel
             // 
-            this.submitChannel.Image = global::rtmpGUI.Properties.Resources.blue_document_share;
+            this.submitChannel.Image = global::rtmpGUI.Properties.Resources.blue_share;
             this.submitChannel.Name = "submitChannel";
             this.submitChannel.Size = new System.Drawing.Size(159, 22);
             this.submitChannel.Text = "Submit Channel";

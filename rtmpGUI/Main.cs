@@ -353,7 +353,6 @@ namespace rtmpGUI
                 try
                 {
                     xDoc.LoadXml(connection("http://apps.ohlulz.com/rtmpgui/list.xml"));
-                    //xDoc.LoadXml(connection("http://127.0.0.1/www/rtmpgui/list.php"));
                     this.Text = "rtmpGUI : Remote Channel List";
 
                     XmlNodeList nodes = xDoc.SelectNodes("/streams/stream");
@@ -368,8 +367,8 @@ namespace rtmpGUI
                         lvi.SubItems.Add(xn["playpath"].InnerText);
                         lvi.SubItems.Add(xn["language"].InnerText);
                         lvi.SubItems.Add(xn["advanced"].InnerText);
-                        //lvi.SubItems.Add(xn["info"].Attributes["resolution"].Value);
-                        //lvi.SubItems.Add(xn["info"].Attributes["bitrate"].Value);
+                        lvi.SubItems.Add(xn["info"].Attributes["resolution"].Value);
+                        lvi.SubItems.Add(xn["info"].Attributes["bitrate"].Value);
                     }
                 }
                 catch (Exception ex)
@@ -415,8 +414,8 @@ namespace rtmpGUI
                         lvi.SubItems.Add(xn["playpath"].InnerText);
                         lvi.SubItems.Add(xn["language"].InnerText);
                         lvi.SubItems.Add(xn["advanced"].InnerText);
-                        //lvi.SubItems.Add(xn["info"].Attributes["resolution"].Value);
-                        //lvi.SubItems.Add(xn["info"].Attributes["bitrate"].Value);
+                        lvi.SubItems.Add(xn["info"].Attributes["resolution"].Value);
+                        lvi.SubItems.Add(xn["info"].Attributes["bitrate"].Value);
                     }
                 }
                 catch (Exception ex)
@@ -610,15 +609,31 @@ namespace rtmpGUI
                     pr.StartInfo.UseShellExecute = false;
                 }
 
-                if (playpath.Length == 0)
+                if (vlcLoc.Contains("vlc.exe"))
                 {
-                    pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                    if (playpath.Length == 0)
+                    {
+                        pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                        txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                    }
+                    else
+                    {
+                        pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                        txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                    }
                 }
                 else
                 {
-                    pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
-                    txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " --meta-title=\"" + title + "\" -";
+                    if (playpath.Length == 0)
+                    {
+                        pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
+                        txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " | " + vlcLoc + " -";
+                    }
+                    else
+                    {
+                        pr.StartInfo.Arguments = @"/C" + "rtmpdump --live -v -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                        txtCommands.Text = "rtmpdump" + " -r " + link + " -W " + swfUrl + " " + advanced + " -p " + pageUrl + " -y " + playpath + " | " + vlcLoc + " -";
+                    }
                 }
 
                 pr.Start();
@@ -676,8 +691,10 @@ namespace rtmpGUI
                         tw.WriteEndElement();
 
                         tw.WriteStartElement("info", string.Empty);
-                        tw.WriteAttributeString("resolution", list.Items[i].SubItems[7].Text);
-                        tw.WriteAttributeString("bitrate", list.Items[i].SubItems[8].Text);
+                        //tw.WriteAttributeString("resolution", list.Items[i].SubItems[7].Text);
+                        tw.WriteAttributeString("resolution", "");
+                        //tw.WriteAttributeString("bitrate", list.Items[i].SubItems[8].Text);
+                        tw.WriteAttributeString("bitrate", "");
                         tw.WriteEndElement();
 
                         tw.WriteStartElement("swfUrl", string.Empty);
